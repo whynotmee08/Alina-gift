@@ -1,10 +1,4 @@
-from idlelib import statusbar
-from mimetypes import init
-from operator import add
-
-from flask import Flask, render_template
-from pip._internal.vcs import git
-
+from flask import Flask, render_template\
 app = Flask(__name__)
 @app.route('/')
 def index():
