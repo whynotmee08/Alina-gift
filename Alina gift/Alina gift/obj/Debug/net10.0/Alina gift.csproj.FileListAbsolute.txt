@@ -1,0 +1,4 @@
+C:\Users\misha\OneDrive\Desktop\alina.gift\Alina gift\Alina gift\obj\Debug\net10.0\Alina gift.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\misha\OneDrive\Desktop\alina.gift\Alina gift\Alina gift\obj\Debug\net10.0\Alina gift.AssemblyInfoInputs.cache
+C:\Users\misha\OneDrive\Desktop\alina.gift\Alina gift\Alina gift\obj\Debug\net10.0\Alina gift.AssemblyInfo.cs
+C:\Users\misha\OneDrive\Desktop\alina.gift\Alina gift\Alina gift\obj\Debug\net10.0\Alina gift.csproj.CoreCompileInputs.cache

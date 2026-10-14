@@ -1,0 +1,4 @@
+flask
+qrcode[pil]
+gunicorn
+web: gunicorn app:app
