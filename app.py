@@ -14,7 +14,7 @@ def index():
     ]
 
     tracks = [
-        {"file": "song1.mp3", "title": "Влюбленные глаза 1", "artist": "Isko"},
+        {"file": "song1.mp3", "title": "Влюбленные глаза ", "artist": "Isko"},
         {"file": "song2.mp3", "title": "Капкан", "artist": "VALID"},
         {"file": "song3.mp3", "title": "Картина", "artist": "BY МЕТРИКА, dxrk.exe"}
     ]
