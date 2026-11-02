@@ -4,10 +4,11 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg"]
+    photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg", "photo5.jpg"]
     tracks = [
-        {"file": "track1.mp3", "title": "Название 1", "artist": "Исполнитель 1"},
-        {"file": "track2.mp3", "title": "Название 2", "artist": "Исполнитель 2"},
+        {"file": "song1.mp3", "title": "Название песни 1", "artist": "Исполнитель 1"},
+        {"file": "song2.mp3", "title": "Название песни 2", "artist": "Исполнитель 2"},
+        {"file": "song3.mp3", "title": "Название песни 3", "artist": "Исполнитель 3"}
     ]
     return render_template("index.html", photos=photos, tracks=tracks)
 

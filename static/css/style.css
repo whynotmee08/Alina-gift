@@ -1,7 +1,4 @@
-/* ============ ШРИФТЫ ============ */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Marck+Script&family=Montserrat:wght@300;400;500;600&display=swap');
-
-/* ============ СБРОС ============ */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
@@ -16,7 +13,6 @@ body {
     line-height: 1.6;
 }
 
-/* ============ МНОГОСЛОЙНЫЙ ФОН ============ */
 body::before {
     content: '';
     position: fixed;
@@ -28,7 +24,6 @@ body::before {
     z-index: -2;
 }
 
-/* Тонкий шум поверх фона — эффект «дорогой бумаги» */
 body::after {
     content: '';
     position: fixed;
@@ -39,7 +34,6 @@ body::after {
     z-index: -1;
 }
 
-/* ============ ПЛАВАЮЩИЕ СФЕРЫ ============ */
 .orb {
     position: fixed;
     border-radius: 50%;
@@ -77,7 +71,6 @@ body::after {
     66% { transform: translate(-30px, 40px) scale(0.95); }
 }
 
-/* ============ КОНТЕЙНЕР ============ */
 .container {
     position: relative;
     z-index: 1;
@@ -86,7 +79,6 @@ body::after {
     padding: 80px 28px 100px;
 }
 
-/* ============ ЗАГОЛОВОК ============ */
 .hero {
     text-align: center;
     margin-bottom: 60px;
@@ -147,7 +139,6 @@ h1 {
     animation: fadeUp 1s ease 0.9s forwards;
 }
 
-/* ============ СЛАЙДЕР ============ */
 .slider {
     position: relative;
     max-width: 480px;
@@ -167,7 +158,6 @@ h1 {
         0 0 0 1px rgba(255, 255, 255, 0.8) inset;
 }
 
-/* Блик сверху — эффект стекла */
 .slider-track::before {
     content: '';
     position: absolute;
@@ -196,7 +186,6 @@ h1 {
     border-radius: 20px;
 }
 
-/* Точки-линии слайдера */
 .slider-dots {
     display: flex;
     justify-content: center;
@@ -218,7 +207,6 @@ h1 {
     background: linear-gradient(90deg, #a78bfa, #7c3aed);
 }
 
-/* ============ ПИСЬМО ============ */
 .letter-card {
     position: relative;
     background: rgba(255, 255, 255, 0.7);
@@ -233,7 +221,6 @@ h1 {
     overflow: hidden;
 }
 
-/* Тонкая цветная полоска слева */
 .letter-card::before {
     content: '';
     position: absolute;
@@ -245,7 +232,6 @@ h1 {
     border-radius: 3px;
 }
 
-/* Мягкое свечение в углу */
 .letter-card::after {
     content: '';
     position: absolute;
@@ -291,7 +277,6 @@ h1 {
     }
 }
 
-/* ============ КНОПКА ============ */
 .cta {
     text-align: center;
     opacity: 0;
@@ -355,7 +340,6 @@ button:hover svg {
     transform: translateX(4px);
 }
 
-/* Секретное послание */
 .secret {
     font-family: 'Marck Script', cursive;
     font-size: 2em;
@@ -373,7 +357,6 @@ button:hover svg {
     animation: pulse 2s ease-in-out infinite;
 }
 
-/* ============ АНИМАЦИИ ============ */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -395,7 +378,6 @@ button:hover svg {
     50% { transform: scale(1.05); }
 }
 
-/* ============ ЛЕТЯЩИЕ ЛЕПЕСТКИ ============ */
 #hearts {
     position: fixed;
     inset: 0;
@@ -418,7 +400,6 @@ button:hover svg {
     }
 }
 
-/* ============ АДАПТИВ ============ */
 @media (max-width: 700px) {
     .container { padding: 50px 20px 70px; }
     h1 { font-size: 4em; }
