@@ -14,9 +14,9 @@ def index():
     ]
 
     tracks = [
-        {"file": "song1.mp3", "title": "Название песни 1", "artist": "Исполнитель 1"},
-        {"file": "song2.mp3", "title": "Название песни 2", "artist": "Исполнитель 2"},
-        {"file": "song3.mp3", "title": "Название песни 3", "artist": "Исполнитель 3"}
+        {"file": "song1.mp3", "title": "Влюбленные глаза 1", "artist": "Isko"},
+        {"file": "song2.mp3", "title": "Капкан", "artist": "VALID"},
+        {"file": "song3.mp3", "title": "Картина", "artist": "BY МЕТРИКА, dxrk.exe"}
     ]
 
     return render_template("index.html", photos=photos, tracks=tracks)
