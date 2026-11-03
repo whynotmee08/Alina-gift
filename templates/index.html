@@ -341,7 +341,7 @@
         if (audio.paused) {
             audio.play().then(() => {
                 setPlayingUI(true);
-                unlockAchievement('music', 'Первый шаг', '🎵');
+                unlockAchievement('music', 'Твои треки', '🎵');
             }).catch(err => alert('Ошибка: ' + err.message));
         } else {
             audio.pause();
@@ -383,7 +383,7 @@
     ];
 
     function showRandomWish() {
-        unlockAchievement('wish', 'Читатель', '📜');
+        unlockAchievement('wish', 'Наилучшей сестре', '📜');
         const el = document.getElementById("secret");
         const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
 
@@ -430,7 +430,7 @@
             scoreEl.innerText = score;
 
             if (score === 21) {
-                unlockAchievement('hearts', 'Ловец сердец', '💜');
+                unlockAchievement('hearts', 'Ты лучшая сестра', '💜');
             }
         };
 
@@ -498,7 +498,7 @@
 
         if (!env.classList.contains('open')) {
             env.classList.add('open');
-            unlockAchievement('envelope', 'Взломщик', '🎁');
+            unlockAchievement('envelope', 'Оп,а вот и секретик', '🎁');
             setTimeout(() => {
                 heart.classList.add('show');
                 createConfetti(window.innerWidth/2, window.innerHeight/2);
@@ -593,7 +593,7 @@
     let petChatter = 0;
 
     function petClicked() {
-        unlockAchievement('pet', 'Друг кота', '🐈');
+        unlockAchievement('pet', 'Твой личный кот', '🐈');
         const emoji = document.getElementById('petEmoji');
         const bubble = document.getElementById('petBubble');
 
