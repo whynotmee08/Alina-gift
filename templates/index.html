@@ -163,7 +163,6 @@
     </section>
 
     <!-- СЕКРЕТНОЕ СЛОВО -->
-        <!-- СЕКРЕТНОЕ СЛОВО -->
     <section class="secret-word-section">
         <p class="secret-word-label">Введи секретные слова:</p>
 
@@ -411,11 +410,9 @@
 
     // ============ ДОСТИЖЕНИЕ ============
     function showAchievement() {
-        // Вспышка конфетти на весь экран
         createConfetti(window.innerWidth / 2, window.innerHeight / 2);
         setTimeout(() => createConfetti(window.innerWidth / 2, window.innerHeight / 2), 300);
 
-        // Создаем плашку
         const ach = document.createElement('div');
         ach.className = 'achievement-popup';
         ach.innerHTML = `
@@ -427,7 +424,6 @@
         `;
         document.body.appendChild(ach);
 
-        // Убираем плашку через 4 секунды
         setTimeout(() => {
             ach.classList.add('hide');
             setTimeout(() => ach.remove(), 500);
@@ -533,6 +529,7 @@
     // ============ ИНТЕРАКТИВНЫЙ ПИТОМЕЦ ============
     const petPhrases = [
         "Мяу! Ты самая лучшая!",
+        "Мурр... Я тебя обожаю.",
         "Улыбнись! Ты очень красивая.",
         "Мяу-мяу! Спасибо, что ты есть.",
         "Мур! Ты делаешь этот мир добрее."
@@ -567,9 +564,7 @@
         }, 3000);
     }
 
-      // ============ СЕКРЕТНОЕ СЛОВО ============
-    let secretAttempts = 0; // Счетчик попыток
-
+    // ============ СЕКРЕТНОЕ СЛОВО (ИСПРАВЛЕННОЕ) ============
     function checkSecretWord() {
         const input = document.getElementById('secretInput');
         const msg = document.getElementById('secretMessage');
@@ -577,28 +572,31 @@
         const word = input.value.trim().toLowerCase();
 
         if (word === 'наилучший брат' || word === 'лучший брат' || word === 'брат') {
-            // Успех!
-            msg.innerText = "Ты нашла секрет! Я тебя обожаю! 💜🎉";
+            msg.innerText = "Ты нашла секрет! Молодец! 💜🎉";
             msg.className = "secret-word-message success";
-            hint.style.opacity = "0"; // Прячем подсказку, раз угадала
+            if (hint) hint.style.opacity = "0";
             createConfetti(window.innerWidth / 2, window.innerHeight / 2);
             input.value = '';
         } else {
-            // Ошибка
-            secretAttempts++;
             msg.innerText = "Хм, не то слово... Попробуй еще!";
             msg.className = "secret-word-message error";
 
-            // Даем подсказки в зависимости от количества попыток
-            if (secretAttempts === 1) {
-                hint.innerText = "Подсказка: это тот, кто всегда защитит. (2 слова)";
-            } else if (secretAttempts === 2) {
-                hint.innerText = "Подсказка: первое слово — 'наилучший'.";
-            } else {
-                hint.innerText = "Подсказка: начинается на 'Наи...', а второе слово — 'брат'.";
+            // Считаем попытки
+            if (!window.secretAttempts) window.secretAttempts = 0;
+            window.secretAttempts++;
+
+            if (hint) {
+                if (window.secretAttempts === 1) {
+                    hint.innerText = "Подсказка: это тот, кто всегда защитит. (2 слова)";
+                } else if (window.secretAttempts === 2) {
+                    hint.innerText = "Подсказка: первое слово — 'наилучший'.";
+                } else {
+                    hint.innerText = "Подсказка: начинается на 'Наи...', а второе слово — 'брат'.";
+                }
             }
         }
     }
+
     // ============ ТЕМНАЯ ТЕМА ============
     function toggleTheme() {
         const body = document.body;
