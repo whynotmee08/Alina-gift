@@ -212,14 +212,9 @@
 
         /* ============ ПИСЬМО ============ */
         .letter-section { margin-bottom: 100px; opacity: 0; animation: fadeUp 1.2s ease 0.6s forwards; }
-        .letter { position: relative; padding: 20px 0 20px 40px; border-left: 1px solid #7c3aed; }
-        .letter .line { font-family: 'Cormorant Garamond', serif; font-size: 1.6em; line-height: 1.6; font-weight: 300; color: #333; margin-bottom: 14px; opacity: 0; transform: translateY(12px); animation: fadeUpLine 1s ease forwards; }
-        .line-1 { animation-delay: 0.8s; }
-        .line-2 { animation-delay: 1.5s; }
-        .line-3 { animation-delay: 2.2s; }
-        .line-4 { animation-delay: 2.9s; }
-        .line-5 { animation-delay: 3.6s; color: #0a0a0a; font-weight: 500; }
-        .signature { font-family: 'Marck Script', cursive !important; font-size: 2em !important; color: #7c3aed !important; margin-top: 32px !important; animation-delay: 4.3s !important; text-align: right; padding-right: 20px; }
+        .letter { position: relative; padding: 20px 0 20px 40px; border-left: 1px solid #7c3aed; min-height: 250px; }
+        .letter .line { font-family: 'Cormorant Garamond', serif; font-size: 1.6em; line-height: 1.6; font-weight: 300; color: #333; margin-bottom: 14px; min-height: 1.6em; }
+        .signature { font-family: 'Marck Script', cursive !important; font-size: 2em !important; color: #7c3aed !important; margin-top: 32px !important; text-align: right; padding-right: 20px; }
 
         /* ============ КНОПКА CTA ============ */
         .cta { text-align: center; opacity: 0; animation: fadeUp 1s ease 4.8s forwards; padding-top: 40px; border-top: 1px solid rgba(124, 58, 237, 0.18); }
@@ -236,7 +231,6 @@
 
         /* ============ АНИМАЦИИ ============ */
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeUpLine { to { opacity: 1; transform: translateY(0); } }
 
         /* ============ АДАПТИВ ============ */
         @media (max-width: 700px) {
@@ -430,7 +424,6 @@
         </div>
 
         <div class="music-player">
-            <!-- Пластинка. Клик по ней включает музыку и вызывает секретное окно -->
             <div class="vinyl-wrapper" id="vinylWrapper" onclick="toggleMusic()">
                 <div class="vinyl" id="vinyl">
                     <div class="vinyl-label">
@@ -485,12 +478,12 @@
             <h2>Послание</h2>
         </div>
         <div class="letter">
-            <p class="line line-1">Алина, спасибо тебе за каждый день,</p>
-            <p class="line line-2">за твою поддержку и доброту.</p>
-            <p class="line line-3">Ты — не просто сестра,</p>
-            <p class="line line-4">ты мой самый близкий человек.</p>
-            <p class="line line-5">Я тебя очень люблю.</p>
-            <p class="line line-6 signature">— с любовью</p>
+            <p class="line" id="line1"></p>
+            <p class="line" id="line2"></p>
+            <p class="line" id="line3"></p>
+            <p class="line" id="line4"></p>
+            <p class="line" id="line5"></p>
+            <p class="line signature" id="line6"></p>
         </div>
     </section>
 
@@ -714,6 +707,38 @@
     function closeSecret() {
         document.getElementById('secretModal').classList.remove('active');
     }
+
+    // ============ ПЕЧАТНАЯ МАШИНКА ============
+    const textLines = [
+        "Алина, спасибо тебе за каждый день,",
+        "за твою поддержку и доброту.",
+        "Ты — не просто сестра,",
+        "ты мой самый близкий человек.",
+        "Я тебя очень люблю.",
+        "— с любовью"
+    ];
+
+    let currentLine = 0;
+    let currentChar = 0;
+
+    function typeWriter() {
+        if (currentLine >= textLines.length) return;
+
+        const lineElement = document.getElementById('line' + (currentLine + 1));
+        const textToType = textLines[currentLine];
+
+        if (currentChar < textToType.length) {
+            lineElement.textContent += textToType.charAt(currentChar);
+            currentChar++;
+            setTimeout(typeWriter, 40);
+        } else {
+            currentLine++;
+            currentChar = 0;
+            setTimeout(typeWriter, 500);
+        }
+    }
+
+    setTimeout(typeWriter, 2500);
 </script>
 
 </body>
