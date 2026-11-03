@@ -269,6 +269,7 @@
             .playlist-title { font-size: 1.05em; }
         }
     <style>
+            <script>
     /* ============ ЛЕТЯЩИЕ ШАРИКИ ============ */
     .balloon {
         position: fixed;
@@ -297,6 +298,7 @@
         0% { transform: scale(1); opacity: 1; }
         100% { transform: scale(1.5); opacity: 0; }
     }
+    </script>
 </style>
 </head>
 <body>
@@ -552,7 +554,8 @@
 
     loadTrack(0);
 </script>
-<script>
+<style>
+    <style></style>
     // ============ ИНТЕРАКТИВНЫЕ ШАРИКИ ============
     const balloonEmojis = ['🎈', '💜', '🩷', '✨', '🪻'];
 
@@ -562,6 +565,7 @@
 
         balloon.innerText = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
         balloon.style.left = Math.random() * 100 + 'vw';
+        balloon.style.bottom = '10px'; //
 
         const size = Math.random() * 20 + 20;
         balloon.style.fontSize = size + 'px';
@@ -621,6 +625,7 @@
             setTimeout(() => particle.remove(), 1000);
         }
     }
+    </style>
 </script>
 </body>
 </html>
