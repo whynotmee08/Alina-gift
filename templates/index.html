@@ -554,8 +554,7 @@
 
     loadTrack(0);
 </script>
-<style>
-    <style></style>
+<script>
     // ============ ИНТЕРАКТИВНЫЕ ШАРИКИ ============
     const balloonEmojis = ['🎈', '💜', '🩷', '✨', '🪻'];
 
@@ -565,7 +564,8 @@
 
         balloon.innerText = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
         balloon.style.left = Math.random() * 100 + 'vw';
-        balloon.style.bottom = '10px'; //
+        balloon.style.bottom = '10px'; // Временно, чтобы точно увидеть
+        balloon.style.position = 'fixed'; // Временно
 
         const size = Math.random() * 20 + 20;
         balloon.style.fontSize = size + 'px';
@@ -625,7 +625,6 @@
             setTimeout(() => particle.remove(), 1000);
         }
     }
-    </style>
 </script>
 </body>
 </html>
