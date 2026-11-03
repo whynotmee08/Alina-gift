@@ -21,6 +21,9 @@
     <div class="aurora aurora-3"></div>
 </div>
 
+<!-- Эффект матрицы (падающие сердечки) -->
+<div id="matrix-hearts"></div>
+
 <!-- Декор -->
 <div class="bg-corner corner-tl"></div>
 <div class="bg-corner corner-br"></div>
@@ -38,16 +41,26 @@
         <span>Поймано сердечек: <span class="score-board" id="score">0</span></span>
     </div>
 
+    <!-- ЗАГОЛОВОК -->
     <header class="hero">
-        <p class="label">персонально для тебя</p>
-        <h1>
+        <p class="label" id="heroLabel">персонально для тебя</p>
+
+        <!-- Обычный заголовок -->
+        <h1 id="heroTitle">
             Алине
             <span class="accent">с любовью</span>
         </h1>
-        <p class="subtitle">Самой лучшей сестре на свете — от того, кто всегда рядом.</p>
+
+        <!-- Заголовок на ДР (скрыт по умолчанию) -->
+        <h1 id="birthdayTitle" style="display: none; color: #ff4d6d; font-size: clamp(3.5em, 10vw, 7em);">
+            С ДНЕМ РОЖДЕНИЯ!
+            <span class="accent" style="color: #ff4d6d;">Алина 🎂</span>
+        </h1>
+
+        <p class="subtitle" id="heroSubtitle">Самой лучшей сестре на свете — от того, кто всегда рядом.</p>
 
         <!-- СЧЕТЧИК ДНЯ РОЖДЕНИЯ -->
-        <div class="birthday-timer">
+        <div class="birthday-timer" id="birthdayTimer">
             <p>До твоего Дня Рождения осталось</p>
             <div class="days-left" id="daysLeft">0</div>
             <div class="days-label" id="daysLabel">дней</div>
@@ -165,8 +178,6 @@
     <!-- СЕКРЕТНОЕ СЛОВО -->
     <section class="secret-word-section">
         <p class="secret-word-label">Введи секретные слова:</p>
-
-        <!-- Подсказка с ID, чтобы можно было её менять -->
         <p class="secret-hint" id="secretHint">Кто всегда придет на помощь и не бросит в беде? (два слова)</p>
 
         <div class="secret-word-input-wrap">
@@ -210,6 +221,30 @@
 </audio>
 
 <script>
+    // ============ ЭФФЕКТ МАТРИЦЫ (ПАДАЮЩИЕ СЕРДЕЧКИ) ============
+    const matrixContainer = document.getElementById('matrix-hearts');
+    const symbols = ['💜', '🩷', '🤍', '❤️', '💖', '💕'];
+
+    function createMatrixHeart() {
+        const heart = document.createElement('div');
+        heart.className = 'matrix-heart';
+        heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 8 + 5) + 's'; // От 5 до 13 секунд
+        heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+        heart.style.opacity = Math.random() * 0.5 + 0.1; // От 0.1 до 0.6
+
+        matrixContainer.appendChild(heart);
+
+        // Удаляем сердечко, когда оно упадет
+        setTimeout(() => {
+            heart.remove();
+        }, 13000);
+    }
+
+    // Создаем сердечки каждые 300 мс
+    setInterval(createMatrixHeart, 300);
+
     // ============ СЛАЙДЕР ============
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
@@ -354,11 +389,9 @@
             createConfetti(e.clientX, e.clientY);
             setTimeout(() => balloon.remove(), 300);
 
-            // Увеличиваем счетчик
             score++;
             scoreEl.innerText = score;
 
-            // Достижение на 50 шариков
             if (score === 50 && !secretUnlocked) {
                 secretUnlocked = true;
                 showAchievement();
@@ -498,11 +531,11 @@
 
     setTimeout(typeWriter, 2500);
 
-    // ============ СЧЕТЧИК ДНЯ РОЖДЕНИЯ ============
+    // ============ СЧЕТЧИК ДНЯ РОЖДЕНИЯ И СЮРПРИЗ ============
     function updateBirthday() {
         const today = new Date();
         let year = today.getFullYear();
-        let bday = new Date(year, 10, 3);
+        let bday = new Date(year, 10, 3); // 3 ноября
 
         const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
         if (endOfToday > bday) {
@@ -516,9 +549,24 @@
         const label = document.getElementById('daysLabel');
 
         if (el) {
+            // ПРОВЕРКА: Если сегодня 3 ноября
             if (today.getDate() === 3 && today.getMonth() === 10) {
-                el.innerText = "🎉";
-                if (label) label.innerText = "С Днём Рождения!";
+                // Меняем заголовок
+                document.getElementById('heroTitle').style.display = 'none';
+                document.getElementById('birthdayTitle').style.display = 'block';
+                document.getElementById('heroLabel').innerText = "Это твой день!";
+                document.getElementById('heroSubtitle').innerText = "Желаю тебе всего самого наилучшего. Ты — лучшая!";
+
+                // Прячем таймер
+                document.getElementById('birthdayTimer').style.display = 'none';
+
+                // Запускаем бесконечное конфетти на весь экран
+                setInterval(() => {
+                    createConfetti(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight
+                    );
+                }, 500); // Каждые полсекунды
             } else {
                 el.innerText = diffDays;
             }
@@ -564,7 +612,7 @@
         }, 3000);
     }
 
-    // ============ СЕКРЕТНОЕ СЛОВО (ИСПРАВЛЕННОЕ) ============
+    // ============ СЕКРЕТНОЕ СЛОВО ============
     function checkSecretWord() {
         const input = document.getElementById('secretInput');
         const msg = document.getElementById('secretMessage');
@@ -581,7 +629,6 @@
             msg.innerText = "Хм, не то слово... Попробуй еще!";
             msg.className = "secret-word-message error";
 
-            // Считаем попытки
             if (!window.secretAttempts) window.secretAttempts = 0;
             window.secretAttempts++;
 
