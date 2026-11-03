@@ -631,6 +631,7 @@
     let petLevel = 1; // 1 - котик, 2 - лев, 3 - дракон
 
     function petClicked() {
+        unlockAchievement('pet', 'Твой личный кот', '🐈');
         const emoji = document.getElementById('petEmoji');
         const bubble = document.getElementById('petBubble');
 
