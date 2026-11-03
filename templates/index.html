@@ -8,17 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Marck+Script&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
+        /* ============ СБРОС ============ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
-
+        /* ============ ФОН ============ */
         body {
             font-family: 'Inter', sans-serif;
             background:
@@ -34,7 +28,7 @@
             position: relative;
         }
 
-
+        /* ============ ПЛАВАЮЩИЕ ПЯТНА ============ */
         .bg-blob {
             position: fixed;
             border-radius: 50%;
@@ -55,7 +49,7 @@
             66% { transform: translate(-50px, 70px) scale(0.92); }
         }
 
-
+        /* ============ ТОНКАЯ СЕТКА ============ */
         body::before {
             content: '';
             position: fixed;
@@ -70,7 +64,7 @@
             -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 85%);
         }
 
-
+        /* ============ ОГРОМНАЯ ЦИФРА ============ */
         body::after {
             content: '01';
             position: fixed;
@@ -87,7 +81,7 @@
             letter-spacing: -0.05em;
         }
 
-
+        /* ============ ЗЕРНО ============ */
         .bg-grain {
             position: fixed;
             inset: 0;
@@ -98,7 +92,7 @@
             mix-blend-mode: multiply;
         }
 
-
+        /* ============ ДЕКОР: ЗВЁЗДОЧКИ ============ */
         .bg-sparkle {
             position: fixed;
             width: 4px; height: 4px;
@@ -120,7 +114,7 @@
 
         @keyframes sparkleTwinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8) rotate(0deg); } 50% { opacity: 0.8; transform: scale(1.2) rotate(45deg); } }
 
-
+        /* ============ ДЕКОР: ЛИНИИ ПО УГЛАМ ============ */
         .bg-corner { position: fixed; width: 220px; height: 220px; pointer-events: none; z-index: 0; opacity: 0.4; color: #7c3aed; }
         .corner-tl { top: 30px; left: 30px; border-top: 1px solid currentColor; border-left: 1px solid currentColor; border-top-left-radius: 4px; }
         .corner-br { bottom: 30px; right: 30px; border-bottom: 1px solid currentColor; border-right: 1px solid currentColor; border-bottom-right-radius: 4px; }
@@ -128,27 +122,27 @@
         .corner-tl::before { top: -3px; left: -3px; }
         .corner-br::before { bottom: -3px; right: -3px; }
 
-
+        /* ============ КОНТЕЙНЕР ============ */
         .container { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 100px 32px 120px; }
 
-
+        /* ============ ВЕРХНЯЯ МЕТКА ============ */
         .top-bar { display: flex; justify-content: space-between; align-items: center; font-size: 0.7em; letter-spacing: 0.3em; text-transform: uppercase; color: #7c3aed; margin-bottom: 100px; padding-bottom: 20px; border-bottom: 1px solid rgba(124, 58, 237, 0.2); opacity: 0; animation: fadeUp 1s ease 0.1s forwards; }
         .top-bar .dot-live { display: inline-block; width: 6px; height: 6px; background: #7c3aed; border-radius: 50%; margin-right: 10px; animation: blinkDot 2s ease-in-out infinite; }
         @keyframes blinkDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-
+        /* ============ ЗАГОЛОВОК ============ */
         .hero { margin-bottom: 100px; opacity: 0; animation: fadeUp 1.2s ease 0.2s forwards; }
         .hero .label { font-size: 0.7em; letter-spacing: 0.4em; text-transform: uppercase; color: #7c3aed; margin-bottom: 30px; }
         h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(4em, 12vw, 9em); line-height: 0.95; font-weight: 300; letter-spacing: -0.03em; color: #0a0a0a; margin-bottom: 30px; }
         h1 .accent { font-family: 'Marck Script', cursive; font-weight: 400; display: block; font-size: 0.9em; color: #7c3aed; margin-top: 0.05em; }
         .subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4em; font-weight: 300; color: #555; max-width: 460px; line-height: 1.4; }
 
-
+        /* ============ ЗАГОЛОВКИ СЕКЦИЙ ============ */
         .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 30px; padding-bottom: 16px; border-bottom: 1px solid rgba(124, 58, 237, 0.18); }
         .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; font-style: italic; color: #0a0a0a; }
         .section-header .counter { font-size: 0.75em; letter-spacing: 0.2em; color: #999; }
 
-
+        /* ============ СЛАЙДЕР ============ */
         .slider-section { margin-bottom: 120px; opacity: 0; animation: fadeUp 1.2s ease 0.4s forwards; }
         .slider { position: relative; }
         .slider-track { position: relative; aspect-ratio: 4/5; overflow: hidden; background: #f0f0f0; border-radius: 12px; box-shadow: 0 30px 70px -25px rgba(124, 58, 237, 0.35); }
@@ -162,11 +156,11 @@
         .slide-index { font-family: 'Cormorant Garamond', serif; font-size: 1.2em; color: #999; letter-spacing: 0.1em; }
         .slide-index .current { color: #7c3aed; font-weight: 500; }
 
-
+        /* ============ МУЗЫКА ============ */
         .music-section { margin-bottom: 120px; opacity: 0; animation: fadeUp 1.2s ease 0.5s forwards; }
         .music-player { display: flex; align-items: center; gap: 40px; padding: 32px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 16px; box-shadow: 0 30px 70px -25px rgba(124, 58, 237, 0.35); }
 
-        .vinyl-wrapper { position: relative; width: 160px; height: 160px; flex-shrink: 0; cursor: pointer; }
+        .vinyl-wrapper { position: relative; width: 160px; height: 160px; flex-shrink: 0; cursor: pointer; z-index: 10;}
         .vinyl { width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle at center, #1a1a1a 0%, #1a1a1a 18%, #0a0a0a 18.5%, #2a2a2a 20%, #0a0a0a 22%, #2a2a2a 24%, #0a0a0a 26%, #2a2a2a 28%, #0a0a0a 30%, #1a1a1a 35%, #0a0a0a 40%, #2a2a2a 42%, #0a0a0a 45%, #2a2a2a 48%, #0a0a0a 50%, #2a2a2a 52%, #0a0a0a 55%, #1a1a1a 60%, #0a0a0a 100%); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1) inset; position: relative; animation: spin 3s linear infinite; animation-play-state: paused; }
         .vinyl.playing { animation-play-state: running; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -197,7 +191,7 @@
         .play-icon { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #0a0a0a; display: flex; align-items: center; justify-content: center; font-size: 0.8em; transition: all 0.3s ease; }
         .play-button.playing .play-icon { background: #7c3aed; border-color: #7c3aed; color: #fff; }
 
-
+        /* ============ СПИСОК ТРЕКОВ ============ */
         .playlist { margin-top: 24px; border-top: 1px solid rgba(124, 58, 237, 0.15); }
         .playlist-item { display: flex; align-items: center; gap: 18px; padding: 18px 16px; border-bottom: 1px solid rgba(124, 58, 237, 0.1); cursor: pointer; transition: all 0.3s ease; position: relative; }
         .playlist-item:hover { background: rgba(124, 58, 237, 0.04); padding-left: 22px; }
@@ -205,9 +199,9 @@
         .playlist-item.active::before { content: ''; position: absolute; left: 0; top: 20%; bottom: 20%; width: 2px; background: #7c3aed; }
         .playlist-num { font-family: 'Cormorant Garamond', serif; font-size: 1.1em; color: #bbb; width: 30px; flex-shrink: 0; transition: color 0.3s ease; }
         .playlist-item.active .playlist-num { color: #7c3aed; }
-            .playlist-text {flex: 1;min-width: 0;display: flex;flex-direction: column;gap: 2px;}
-            .playlist-title {display: block;font-family: 'Cormorant Garamond', serif;font-size: 1.15em;color: #0a0a0a;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
-            .playlist-artist {display: block;font-size: 0.65em;letter-spacing: 0.2em;text-transform: uppercase;color: #999;}
+        .playlist-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+        .playlist-title { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.15em; color: #0a0a0a; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .playlist-artist { display: block; font-size: 0.65em; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
         .playlist-eq { display: flex; align-items: flex-end; gap: 2px; height: 14px; opacity: 0; transition: opacity 0.3s ease; }
         .playlist-eq span { width: 2px; height: 4px; background: #7c3aed; border-radius: 1px; }
         .playlist-item.active.playing .playlist-eq { opacity: 1; }
@@ -216,7 +210,7 @@
         .playlist-item.active.playing .playlist-eq span:nth-child(3) { animation: eq 0.8s ease-in-out infinite 0.4s; }
         @keyframes eq { 0%, 100% { height: 4px; } 50% { height: 14px; } }
 
-
+        /* ============ ПИСЬМО ============ */
         .letter-section { margin-bottom: 100px; opacity: 0; animation: fadeUp 1.2s ease 0.6s forwards; }
         .letter { position: relative; padding: 20px 0 20px 40px; border-left: 1px solid #7c3aed; }
         .letter .line { font-family: 'Cormorant Garamond', serif; font-size: 1.6em; line-height: 1.6; font-weight: 300; color: #333; margin-bottom: 14px; opacity: 0; transform: translateY(12px); animation: fadeUpLine 1s ease forwards; }
@@ -227,7 +221,7 @@
         .line-5 { animation-delay: 3.6s; color: #0a0a0a; font-weight: 500; }
         .signature { font-family: 'Marck Script', cursive !important; font-size: 2em !important; color: #7c3aed !important; margin-top: 32px !important; animation-delay: 4.3s !important; text-align: right; padding-right: 20px; }
 
-
+        /* ============ КНОПКА CTA ============ */
         .cta { text-align: center; opacity: 0; animation: fadeUp 1s ease 4.8s forwards; padding-top: 40px; border-top: 1px solid rgba(124, 58, 237, 0.18); }
         button.cta-button { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.75em; letter-spacing: 0.3em; text-transform: uppercase; color: #0a0a0a; background: transparent; border: 1px solid #0a0a0a; padding: 22px 52px; cursor: pointer; transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1); position: relative; overflow: hidden; }
         button.cta-button span { position: relative; z-index: 2; transition: color 0.5s ease; }
@@ -237,14 +231,14 @@
         .secret { font-family: 'Marck Script', cursive; font-size: 2.2em; color: #7c3aed; margin-top: 36px; opacity: 0; transform: translateY(12px); transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); min-height: 50px; }
         .secret.visible { opacity: 1; transform: translateY(0); }
 
-
+        /* ============ ПОДВАЛ ============ */
         .footer { margin-top: 100px; padding-top: 30px; border-top: 1px solid rgba(124, 58, 237, 0.18); display: flex; justify-content: space-between; font-size: 0.7em; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
 
-
+        /* ============ АНИМАЦИИ ============ */
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeUpLine { to { opacity: 1; transform: translateY(0); } }
 
-
+        /* ============ АДАПТИВ ============ */
         @media (max-width: 700px) {
             .container { padding: 60px 22px 80px; }
             .top-bar { margin-bottom: 60px; font-size: 0.6em; }
@@ -268,41 +262,107 @@
             .playlist-item:hover, .playlist-item.active { padding-left: 16px; }
             .playlist-title { font-size: 1.05em; }
         }
-    <style>
-    </script>
-              /* ============ ЛЕТЯЩИЕ ШАРИКИ ============ */
-        .balloon {
+
+        /* ============ СЕКРЕТНОЕ ОКНО (СЕРДЦЕ НА ВЕСЬ ЭКРАН) ============ */
+        .secret-modal {
             position: fixed;
-            bottom: -100px;
-            font-size: 30px;
-            pointer-events: auto;
-            cursor: pointer;
-            z-index: 0;
-            animation: floatUp linear forwards;
-            user-select: none;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-        }
-
-        .balloon.popped {
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(250, 240, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
             pointer-events: none;
-            animation: pop 0.3s ease-out forwards;
+            transition: opacity 0.5s ease;
         }
 
-        @keyframes floatUp {
-            to {
-                transform: translateY(-120vh) rotate(20deg);
-            }
+        .secret-modal.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        @keyframes pop {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
+        .heart-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
-</style>
+
+        .giant-heart {
+            position: absolute;
+            font-size: 120vw;
+            line-height: 1;
+            z-index: 1;
+            opacity: 0.15;
+            animation: heartbeat 1.5s infinite;
+            user-select: none;
+        }
+
+        .heart-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            max-width: 80%;
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .heart-text h2 {
+            font-family: 'Marck Script', cursive;
+            color: #7c3aed;
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+        }
+
+        .heart-text p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5em;
+            color: #333;
+            line-height: 1.4;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.6);
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .close-btn {
+            background: #7c3aed;
+            color: #fff;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .close-btn:hover {
+            background: #6d28d9;
+            transform: scale(1.05);
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.05); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.05); }
+            60% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
 
-
+<!-- Фон и декор -->
 <div class="bg-blob bg-blob-1"></div>
 <div class="bg-blob bg-blob-2"></div>
 <div class="bg-blob bg-blob-3"></div>
@@ -333,7 +393,7 @@
         <p class="subtitle">Самой лучшей сестре на свете — от того, кто всегда рядом.</p>
     </header>
 
-
+    <!-- СЛАЙДЕР -->
     <section class="slider-section">
         <div class="section-header">
             <h2>Моменты</h2>
@@ -362,7 +422,7 @@
         </div>
     </section>
 
-
+    <!-- МУЗЫКА -->
     <section class="music-section">
         <div class="section-header">
             <h2>Плейлист</h2>
@@ -370,6 +430,7 @@
         </div>
 
         <div class="music-player">
+            <!-- Пластинка. Клик по ней включает музыку и вызывает секретное окно -->
             <div class="vinyl-wrapper" id="vinylWrapper" onclick="toggleMusic()">
                 <div class="vinyl" id="vinyl">
                     <div class="vinyl-label">
@@ -406,7 +467,7 @@
 
         <div class="playlist" id="playlist">
             {% for track in tracks %}
-                                <div class="playlist-item {% if loop.first %}active{% endif %}" onclick="playTrack({{ loop.index0 }})">
+                <div class="playlist-item {% if loop.first %}active{% endif %}" onclick="playTrack({{ loop.index0 }})">
                     <span class="playlist-num">{{ "%02d"|format(loop.index) }}</span>
                     <div class="playlist-text">
                         <span class="playlist-title">{{ track.title }}</span>
@@ -414,47 +475,58 @@
                     </div>
                     <span class="playlist-eq"><span></span><span></span><span></span></span>
                 </div>
-    {% endfor %}
-</div>
-</section>
+            {% endfor %}
+        </div>
+    </section>
 
+    <!-- ПИСЬМО -->
+    <section class="letter-section">
+        <div class="section-header">
+            <h2>Послание</h2>
+        </div>
+        <div class="letter">
+            <p class="line line-1">Алина, спасибо тебе за каждый день,</p>
+            <p class="line line-2">за твою поддержку и доброту.</p>
+            <p class="line line-3">Ты — не просто сестра,</p>
+            <p class="line line-4">ты мой самый близкий человек.</p>
+            <p class="line line-5">Я тебя очень люблю.</p>
+            <p class="line line-6 signature">— с любовью</p>
+        </div>
+    </section>
 
-<section class="letter-section">
-    <div class="section-header">
-        <h2>Послание</h2>
-    </div>
-    <div class="letter">
-        <p class="line line-1">Алина, спасибо тебе за каждый день,</p>
-        <p class="line line-2">за твою поддержку и доброту.</p>
-        <p class="line line-3">Ты — не просто сестра,</p>
-        <p class="line line-4">ты мой самый близкий человек.</p>
-        <p class="line line-5">Я тебя очень люблю.</p>
-        <p class="line line-6 signature">— с любовью</p>
-    </div>
-</section>
+    <!-- КНОПКА -->
+    <section class="cta">
+        <button class="cta-button" onclick="showLove()">
+            <span>Открыть послание</span>
+        </button>
+        <p id="secret" class="secret"></p>
+    </section>
 
-
-<section class="cta">
-    <button class="cta-button" onclick="showLove()">
-        <span>Открыть послание</span>
-    </button>
-    <p id="secret" class="secret"></p>
-</section>
-
-
-<footer class="footer">
-    <span>сделано с душой</span>
-    <span>2026</span>
-</footer>
+    <footer class="footer">
+        <span>сделано с душой</span>
+        <span>2026</span>
+    </footer>
 
 </main>
+
+<!-- СЕКРЕТНОЕ ОКНО -->
+<div id="secretModal" class="secret-modal">
+    <div class="heart-container">
+        <div class="giant-heart">💜</div>
+        <div class="heart-text">
+            <h2>Ты — мое всё!</h2>
+            <p>Спасибо, что ты всегда рядом. Я тебя очень сильно люблю!</p>
+            <button class="close-btn" onclick="closeSecret()">Закрыть</button>
+        </div>
+    </div>
+</div>
 
 <audio id="audio" loop preload="auto">
     <source src="/static/music/music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-
+    // ============ СЛАЙДЕР ============
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
@@ -476,7 +548,7 @@
         }, 5000);
     }
 
-
+    // ============ МУЗЫКА / ПЛЕЙЛИСТ ============
     const playlist = {{ tracks|tojson }};
     const audio = document.getElementById('audio');
     const vinyl = document.getElementById('vinyl');
@@ -543,17 +615,16 @@
     audio.addEventListener('timeupdate', () => { if (audio.duration) { progressFill.style.width = (audio.currentTime / audio.duration) * 100 + '%'; currentTimeEl.textContent = formatTime(audio.currentTime); } });
     function seekMusic(event) { const rect = event.currentTarget.getBoundingClientRect(); audio.currentTime = ((event.clientX - rect.left) / rect.width) * audio.duration; }
 
-
+    // Кнопка CTA
     function showLove() {
         const el = document.getElementById("secret");
         el.innerText = "Ты — лучшая. Спасибо, что ты есть.";
         el.classList.add("visible");
     }
 
-
+    // Загружаем первый трек при старте
     loadTrack(0);
-</script>
-<script>
+
     // ============ ИНТЕРАКТИВНЫЕ ШАРИКИ ============
     const balloonEmojis = ['🎈', '💜', '🩷', '✨', '🪻'];
 
@@ -590,9 +661,10 @@
 
         setTimeout(() => balloon.remove(), 11000);
     }
-        function createConfetti(x, y) {
+
+    function createConfetti(x, y) {
         const colors = ['#7c3aed', '#ff9ec4', '#ffc89e', '#a78bfa', '#f59e0b'];
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 12; i++) {
             const particle = document.createElement('div');
             particle.style.position = 'fixed';
             particle.style.left = x + 'px';
@@ -621,7 +693,28 @@
             setTimeout(() => particle.remove(), 1000);
         }
     }
+
     setInterval(createBalloon, 2000);
+
+    // ============ СЕКРЕТНОЕ ОКНО С СЕРДЦЕМ ============
+    let secretShown = false;
+    const vinylElement = document.getElementById('vinylWrapper');
+
+    if (vinylElement) {
+        vinylElement.addEventListener('click', () => {
+            if (!secretShown) {
+                secretShown = true;
+                setTimeout(() => {
+                    document.getElementById('secretModal').classList.add('active');
+                }, 300);
+            }
+        });
+    }
+
+    function closeSecret() {
+        document.getElementById('secretModal').classList.remove('active');
+    }
 </script>
+
 </body>
 </html>
