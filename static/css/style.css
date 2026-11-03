@@ -5,40 +5,59 @@ html { scroll-behavior: smooth; }
 /* ============ ФОН ============ */
 body {
     font-family: 'Inter', sans-serif;
-    background: #fdfaf6;
+    background: #f7f0ff; /* Запасной цвет, если градиент не загрузится */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
     color: #0a0a0a;
-    min-height: 100vh;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
     position: relative;
+    min-height: 100vh;
 }
 
-/* ============ ЖИВОЙ ФОН (СЕВЕРНОЕ СИЯНИЕ) ============ */
+/* Слой сияния */
 .aurora-bg {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1;
+    z-index: -1; /* Фон всегда сзади */
+    background: linear-gradient(160deg, #f7f0ff 0%, #fdf2f8 40%, #fff4ec 70%, #f8f0ff 100%);
     overflow: hidden;
     pointer-events: none;
-    background: linear-gradient(160deg, #f7f0ff 0%, #fdf2f8 40%, #fff4ec 70%, #f8f0ff 100%);
 }
 
+/* Сами пятна */
 .aurora {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.7;
-    will-change: transform;
+    filter: blur(80px); /* Чуть меньше размытие, чтобы было видно */
+    opacity: 0.8; /* Сделали ярче */
 }
 
-.aurora-1 { width: 70vw; height: 70vw; background: radial-gradient(circle, #d4b8ff 0%, transparent 70%); top: -20%; left: -10%; animation: float1 25s ease-in-out infinite alternate; }
-.aurora-2 { width: 60vw; height: 60vw; background: radial-gradient(circle, #ff9ec4 0%, transparent 70%); bottom: -20%; right: -10%; animation: float2 20s ease-in-out infinite alternate; }
-.aurora-3 { width: 80vw; height: 80vw; background: radial-gradient(circle, #ffc89e 0%, transparent 70%); top: 10%; left: 10%; animation: float3 30s ease-in-out infinite alternate; }
+.aurora-1 {
+    width: 600px; height: 600px;
+    background: #c8a2ff;
+    top: -10%; left: -10%;
+    animation: moveA 20s infinite alternate;
+}
 
-@keyframes float1 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(15vw, 10vh) scale(1.2); } }
-@keyframes float2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-10vw, -15vh) scale(1.1); } }
-@keyframes float3 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-15vw, 15vh) scale(0.8); } }
+.aurora-2 {
+    width: 500px; height: 500px;
+    background: #ff9ec4;
+    bottom: -10%; right: -10%;
+    animation: moveB 25s infinite alternate;
+}
+
+.aurora-3 {
+    width: 700px; height: 700px;
+    background: #ffc89e;
+    top: 30%; left: 30%;
+    animation: moveC 30s infinite alternate;
+}
+
+@keyframes moveA { 0% { transform: translate(0, 0); } 100% { transform: translate(100px, 100px); } }
+@keyframes moveB { 0% { transform: translate(0, 0); } 100% { transform: translate(-100px, -100px); } }
+@keyframes moveC { 0% { transform: translate(0, 0); } 100% { transform: translate(-50px, 150px); } }
 
 /* ============ ДЕКОР: ЗВЁЗДОЧКИ ============ */
 .bg-sparkle {
@@ -217,170 +236,59 @@ button.cta-button:hover span { color: #fff; }
     .playlist-title { font-size: 1.05em; }
 }
 
-/* ============ СЕКРЕТНОЕ ОКНО (КОНВЕРТ И СЕРДЦЕ) ============ */
+/* ============ СЕКРЕТНОЕ ОКНО (КОНВЕРТ) ============ */
 .secret-modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(250, 240, 255, 0.95);
-    backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(250, 240, 255, 0.95); backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
 }
-.secret-modal.active {
-    opacity: 1;
-    pointer-events: auto;
-}
+.secret-modal.active { opacity: 1; pointer-events: auto; }
 
-/* Конверт */
 .envelope {
-    position: absolute; /* Меняем на absolute, чтобы он не двигал сердце */
-    width: 300px; height: 200px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 20px 50px rgba(124, 58, 237, 0.3);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
-    z-index: 2;
+    position: absolute; width: 300px; height: 200px; background: #fff; border-radius: 10px;
+    box-shadow: 0 20px 50px rgba(124, 58, 237, 0.3); cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease; z-index: 2;
 }
-
-/* Крышка конверта */
 .envelope::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 0; height: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-top: 100px solid #e8d5ff;
-    border-radius: 10px 10px 0 0;
-    z-index: 3;
-    transition: transform 0.6s;
-    transform-origin: top;
+    content: ''; position: absolute; top: 0; left: 0; width: 0; height: 0;
+    border-left: 150px solid transparent; border-right: 150px solid transparent;
+    border-top: 100px solid #e8d5ff; border-radius: 10px 10px 0 0;
+    z-index: 3; transition: transform 0.6s; transform-origin: top;
 }
+.envelope.open { transform: translateY(-100px) scale(0.9); opacity: 0; pointer-events: none; }
 
-/* Когда конверт открывается — он улетает вверх и исчезает */
-.envelope.open {
-    transform: translateY(-100px) scale(0.9);
-    opacity: 0;
-    pointer-events: none;
-}
+.wax-seal { width: 60px; height: 60px; background: #7c3aed; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em; z-index: 4; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s; }
+.envelope:hover .wax-seal { transform: scale(1.1); background: #6d28d9; }
+.envelope-text { position: absolute; bottom: 20px; font-family: 'Marck Script', cursive; font-size: 1.2em; color: #7c3aed; z-index: 2; }
 
-/* Сургучная печать */
-.wax-seal {
-    width: 60px; height: 60px;
-    background: #7c3aed;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white; font-size: 1.5em;
-    z-index: 4;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: 0.3s;
-}
-.envelope:hover .wax-seal {
-    transform: scale(1.1);
-    background: #6d28d9;
-}
-
-/* Текст на конверте */
-.envelope-text {
-    position: absolute;
-    bottom: 20px;
-    font-family: 'Marck Script', cursive;
-    font-size: 1.2em;
-    color: #7c3aed;
-    z-index: 2;
-}
-
-/* Сердце (появляется после клика) */
 .heart-container {
-    position: absolute;
-    width: 100%; height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 1s ease 0.5s; /* Задержка 0.5 сек, чтобы конверт успел улететь */
-    z-index: 1;
+    position: absolute; width: 100%; height: 100%; display: flex;
+    flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 1s ease 0.5s; z-index: 1;
 }
-.heart-container.show {
-    opacity: 1;
-    pointer-events: auto;
-}
+.heart-container.show { opacity: 1; pointer-events: auto; }
+.giant-heart { position: absolute; font-size: 120vw; line-height: 1; z-index: 1; opacity: 0.15; animation: heartbeat 1.5s infinite; user-select: none; }
+.heart-text { position: relative; z-index: 2; text-align: center; padding: 20px; max-width: 80%; animation: fadeUp 1s ease forwards; }
+.heart-text h2 { font-family: 'Marck Script', cursive; color: #7c3aed; font-size: 3em; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(255,255,255,0.8); }
+.heart-text p { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; color: #333; line-height: 1.4; margin-bottom: 30px; background: rgba(255,255,255,0.6); padding: 15px; border-radius: 15px; }
+.close-btn { background: #7c3aed; color: #fff; border: none; padding: 15px 35px; border-radius: 30px; font-size: 1.2em; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3); }
+.close-btn:hover { background: #6d28d9; transform: scale(1.05); }
+@keyframes heartbeat { 0% { transform: scale(1); } 15% { transform: scale(1.05); } 30% { transform: scale(1); } 45% { transform: scale(1.05); } 60% { transform: scale(1); } 100% { transform: scale(1); } }
 
-/* Огромное сердце */
-.giant-heart {
-    position: absolute;
-    font-size: 120vw;
-    line-height: 1;
-    z-index: 1;
-    opacity: 0.15;
-    animation: heartbeat 1.5s infinite;
-    user-select: none;
-}
+/* ============ ИНТЕРАКТИВНЫЙ ПИТОМЕЦ ============ */
+.pet-container { position: fixed; bottom: 20px; right: 20px; z-index: 10000; cursor: pointer; display: flex; flex-direction: column; align-items: flex-end; user-select: none; }
+.pet-bubble { background: #fff; color: #7c3aed; padding: 10px 15px; border-radius: 20px 20px 0 20px; font-family: 'Marck Script', cursive; font-size: 1.2em; box-shadow: 0 5px 15px rgba(124, 58, 237, 0.2); border: 1px solid rgba(124, 58, 237, 0.2); margin-bottom: 10px; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none; white-space: nowrap; }
+.pet-bubble.show { opacity: 1; transform: translateY(0); }
+.pet-emoji { font-size: 4em; line-height: 1; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.15)); animation: petBounce 3s ease-in-out infinite; transition: transform 0.2s; }
+.pet-container:hover .pet-emoji { transform: scale(1.1) rotate(-5deg); }
+@keyframes petBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.pet-emoji.happy { animation: petHappy 0.5s ease; }
+@keyframes petHappy { 0% { transform: scale(1); } 50% { transform: scale(1.3) rotate(10deg); } 100% { transform: scale(1); } }
 
-/* Текст внутри сердца */
-.heart-text {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 20px;
-    max-width: 80%;
-    animation: fadeUp 1s ease forwards;
-}
-.heart-text h2 {
-    font-family: 'Marck Script', cursive;
-    color: #7c3aed;
-    font-size: 3em;
-    margin-bottom: 15px;
-    text-shadow: 0 2px 10px rgba(255,255,255,0.8);
-}
-.heart-text p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5em;
-    color: #333;
-    line-height: 1.4;
-    margin-bottom: 30px;
-    background: rgba(255,255,255,0.6);
-    padding: 15px;
-    border-radius: 15px;
-}
-
-/* Кнопка закрытия */
-.close-btn {
-    background: #7c3aed;
-    color: #fff;
-    border: none;
-    padding: 15px 35px;
-    border-radius: 30px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: 0.3s;
-    font-family: 'Inter', sans-serif;
-    box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
-}
-.close-btn:hover {
-    background: #6d28d9;
-    transform: scale(1.05);
-}
-
-@keyframes heartbeat {
-    0% { transform: scale(1); }
-    15% { transform: scale(1.05); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.05); }
-    60% { transform: scale(1); }
-    100% { transform: scale(1); }
+@media (max-width: 700px) {
+    .pet-container { bottom: 15px; right: 15px; }
+    .pet-emoji { font-size: 3em; }
+    .pet-bubble { font-size: 1em; padding: 8px 12px; }
 }

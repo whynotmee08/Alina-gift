@@ -182,6 +182,12 @@
     </div>
 </div>
 
+<!-- ИНТЕРАКТИВНЫЙ ПИТОМЕЦ -->
+<div class="pet-container" id="pet" onclick="petClicked()">
+    <div class="pet-bubble" id="petBubble">Мяу! Нажми на меня 💜</div>
+    <div class="pet-emoji" id="petEmoji">🐈</div>
+</div>
+
 <audio id="audio" loop preload="auto">
     <source src="/static/music/music.mp3" type="audio/mpeg">
 </audio>
@@ -392,7 +398,6 @@
     let secretShown = false;
     const vinylElement = document.getElementById('vinylWrapper');
 
-    // Открываем конверт при клике на пластинку
     if (vinylElement) {
         vinylElement.addEventListener('click', () => {
             if (!secretShown) {
@@ -404,7 +409,6 @@
         });
     }
 
-    // Логика вскрытия конверта
     function openEnvelope() {
         const env = document.getElementById('envelope');
         const heart = document.getElementById('heartContainer');
@@ -414,13 +418,12 @@
             setTimeout(() => {
                 heart.classList.add('show');
                 createConfetti(window.innerWidth/2, window.innerHeight/2);
-            }, 600); // Ждем, пока конверт улетит
+            }, 600);
         }
     }
 
     function closeSecret() {
         document.getElementById('secretModal').classList.remove('active');
-        // Возвращаем конверт в исходное состояние
         setTimeout(() => {
             document.getElementById('envelope').classList.remove('open');
             document.getElementById('heartContainer').classList.remove('show');
@@ -459,15 +462,12 @@
 
     setTimeout(typeWriter, 2500);
 
-    // ============ СЧЕТЧИК ДНЯ РОЖДЕНИЯ (3 НОЯБРЯ) ============
+    // ============ СЧЕТЧИК ДНЯ РОЖДЕНИЯ ============
     function updateBirthday() {
         const today = new Date();
         let year = today.getFullYear();
+        let bday = new Date(year, 10, 3);
 
-        // Дата Дня Рождения (3 ноября)
-        let bday = new Date(year, 10, 3); // Месяцы начинаются с 0, поэтому 10 - это ноябрь
-
-        // Если ДР уже прошел в этом году, считаем до следующего
         const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
         if (endOfToday > bday) {
             bday.setFullYear(year + 1);
@@ -480,7 +480,6 @@
         const label = document.getElementById('daysLabel');
 
         if (el) {
-            // Если сегодня 3 ноября
             if (today.getDate() === 3 && today.getMonth() === 10) {
                 el.innerText = "🎉";
                 if (label) label.innerText = "С Днём Рождения!";
@@ -490,6 +489,45 @@
         }
     }
     updateBirthday();
+
+    // ============ ИНТЕРАКТИВНЫЙ ПИТОМЕЦ ============
+    const petPhrases = [
+        "Мяу! Ты самая лучшая!",
+        "Мурр... Я тебя обожаю.",
+        "Улыбнись! Ты очень красивая.",
+        "Мяу-мяу! Спасибо, что ты есть.",
+        "Мур! Ты делаешь этот мир добрее.",
+        "Мяу! Пусть твой день будет сладким, как мой сон."
+    ];
+
+    let petChatter = 0;
+
+    function petClicked() {
+        const emoji = document.getElementById('petEmoji');
+        const bubble = document.getElementById('petBubble');
+
+        emoji.classList.add('happy');
+        setTimeout(() => emoji.classList.remove('happy'), 500);
+
+        const phrase = petPhrases[Math.floor(Math.random() * petPhrases.length)];
+        bubble.innerText = phrase;
+        bubble.classList.add('show');
+
+        const originalEmoji = '🐈';
+
+        if (petChatter % 2 === 0) {
+            emoji.innerText = '😻';
+        } else {
+            emoji.innerText = '🐈‍⬛';
+        }
+        petChatter++;
+
+        clearTimeout(window.petTimeout);
+        window.petTimeout = setTimeout(() => {
+            bubble.classList.remove('show');
+            emoji.innerText = originalEmoji;
+        }, 3000);
+    }
 </script>
 
 </body>
