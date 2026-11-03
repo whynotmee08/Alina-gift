@@ -14,13 +14,6 @@
 <!-- Кнопка переключения темы -->
 <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Сменить тему">🌙</button>
 
-<!-- Живой фон (Сияние) -->
-<div class="aurora-bg">
-    <div class="aurora aurora-1"></div>
-    <div class="aurora aurora-2"></div>
-    <div class="aurora aurora-3"></div>
-</div>
-
 <!-- Эффект матрицы (падающие сердечки) -->
 <div id="matrix-hearts"></div>
 
@@ -174,7 +167,6 @@
         </div>
         <div class="wheel-container">
             <div class="wheel-pointer"></div>
-
             <div class="wheel" id="fortuneWheel">
                 <div class="wheel-inner">
                     <div class="wheel-segment" style="transform: rotate(0deg);"><span>Ты самая красивая! 💜</span></div>
@@ -410,13 +402,7 @@
         isSpinning = true;
         unlockAchievement('wheel', 'Фортуна на твоей стороне', '🎡');
 
-        // Выбираем случайный выигрышный сектор (от 0 до 7)
         const winningIndex = Math.floor(Math.random() * 8);
-
-        // Вычисляем угол. 8 секторов по 45 градусов.
-        // Стрелка смотрит вверх (на 0 градусов).
-        // Нам нужно, чтобы выигрышный сектор оказался под стрелкой.
-        // Добавляем 5 полных оборотов (1800 градусов) для красоты.
         const targetDeg = 1800 + (360 - (winningIndex * 45));
 
         wheel.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
@@ -424,10 +410,7 @@
 
         setTimeout(() => {
             isSpinning = false;
-
-            // Берем текст из массива по индексу выигрышного сектора
             const winningText = wheelTexts[winningIndex];
-
             wheelResult.innerText = winningText;
             wheelResult.classList.add('visible');
             createConfetti(window.innerWidth / 2, window.innerHeight / 2);
@@ -437,10 +420,11 @@
     // Загружаем первый трек при старте
     loadTrack(0);
 
-    // ============ МИНИ-ИГРА И ШАРИКИ ============
+    // ============ МИНИ-ИГРА И ШАРИКИ (ОПТИМИЗИРОВАНО) ============
     const balloonEmojis = ['🎈', '💜', '🩷', '✨', '🪻'];
     let score = 0;
     const scoreEl = document.getElementById('score');
+    const isMobile = window.innerWidth <= 768;
 
     function createBalloon() {
         const balloon = document.createElement('div');
@@ -485,7 +469,9 @@
 
     function createConfetti(x, y) {
         const colors = ['#7c3aed', '#ff9ec4', '#ffc89e', '#a78bfa', '#f59e0b'];
-        for (let i = 0; i < 12; i++) {
+        const particleCount = isMobile ? 6 : 12;
+
+        for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.style.position = 'fixed';
             particle.style.left = x + 'px';
@@ -515,7 +501,8 @@
         }
     }
 
-    setInterval(createBalloon, 2000);
+    // На телефонах создаем шарики реже
+    setInterval(createBalloon, isMobile ? 4000 : 2000);
 
     // ============ СЕКРЕТНОЕ ОКНО (КОНВЕРТ) ============
     let secretShown = false;
@@ -613,7 +600,7 @@
 
                 setInterval(() => {
                     createConfetti(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
-                }, 500);
+                }, 800);
             } else {
                 el.innerText = diffDays;
             }
@@ -630,7 +617,7 @@
     ];
 
     let petChatter = 0;
-    let petLevel = 1; // 1 - котик, 2 - лев, 3 - дракон
+    let petLevel = 1;
 
     function petClicked() {
         unlockAchievement('pet', 'Твой личный кот', '🐈');
@@ -641,7 +628,6 @@
         emoji.classList.add('happy');
         setTimeout(() => emoji.classList.remove('happy'), 500);
 
-        // Увеличиваем уровень питомца (максимум 3)
         if (petLevel < 3 && petChatter % 5 === 0 && petChatter !== 0) {
             petLevel++;
             if (petLevel === 2) {
