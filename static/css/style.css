@@ -212,6 +212,20 @@ button.cta-button:hover span { color: #fff; }
 /* ============ КОЛЕСО ФОРТУНЫ ============ */
 .wheel-section { margin-bottom: 100px; opacity: 0; animation: fadeUp 1.2s ease 0.7s forwards; text-align: center; }
 .wheel-container { display: flex; flex-direction: column; align-items: center; }
+
+.wheel-pointer {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 25px solid #7c3aed;
+    margin: 0 auto -10px auto;
+    position: relative;
+    z-index: 10;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+    transition: transform 0.3s ease;
+}
+
 .wheel {
     width: 300px; height: 300px;
     border-radius: 50%;
@@ -258,7 +272,7 @@ button.cta-button:hover span { color: #fff; }
     font-weight: bold;
     color: #fff;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    transform: rotate(22.5deg); /* Чтобы текст был по центру сектора */
+    transform: rotate(22.5deg);
     display: block;
     width: 100px;
     text-align: center;
@@ -293,18 +307,7 @@ button.cta-button:hover span { color: #fff; }
     transform: scale(1.05);
     box-shadow: 0 8px 20px rgba(124, 58, 237, 0.6);
 }
-.wheel-pointer {
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 25px solid #7c3aed; /* Цвет стрелки */
-    margin: 0 auto -10px auto; /* Прижимаем стрелку к колесу и центрируем */
-    position: relative;
-    z-index: 10;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-    transition: transform 0.3s ease;
-}
+
 /* ============ СЕКРЕТНОЕ СЛОВО ============ */
 .secret-word-section { text-align: center; padding: 40px 0; border-top: 1px solid rgba(124, 58, 237, 0.18); margin-bottom: 50px; }
 .secret-word-label { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2em; color: #555; margin-bottom: 20px; transition: color 0.5s; }

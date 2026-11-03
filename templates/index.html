@@ -173,8 +173,9 @@
             <span class="counter">Крути и узнай</span>
         </div>
         <div class="wheel-container">
+            <div class="wheel-pointer"></div>
+
             <div class="wheel" id="fortuneWheel">
-                <div class="wheel-pointer"></div>
                 <div class="wheel-inner">
                     <div class="wheel-segment" style="transform: rotate(0deg);"><span>Ты самая красивая! 💜</span></div>
                     <div class="wheel-segment" style="transform: rotate(45deg);"><span>Улыбнись! 😊</span></div>
@@ -187,34 +188,7 @@
                 </div>
                 <div class="wheel-center">🎁</div>
             </div>
-            <button class="cta-button wheel-spin-btn" onclick="    function spinWheel() {
-        if (isSpinning) return;
-        isSpinning = true;
-        unlockAchievement('wheel', 'Фортуна улыбнулась', '🎡');
-
-        // 1. Выбираем случайный выигрышный сектор (от 0 до 7)
-        const winningIndex = Math.floor(Math.random() * 8);
-
-        // 2. Вычисляем угол. У нас 8 секторов по 45 градусов.
-        // Стрелка смотрит вверх (на 0 градусов).
-        // Нам нужно, чтобы выигрышный сектор оказался под стрелкой.
-        // Добавляем 5 полных оборотов (1800 градусов) для красоты.
-        const targetDeg = 1800 + (360 - (winningIndex * 45));
-
-        wheel.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
-        wheel.style.transform = `rotate(${targetDeg}deg)`;
-
-        setTimeout(() => {
-            isSpinning = false;
-
-            // 3. Берем текст из массива по индексу выигрышного сектора
-            const winningText = wheelTexts[winningIndex];
-
-            wheelResult.innerText = winningText;
-            wheelResult.classList.add('visible');
-            createConfetti(window.innerWidth / 2, window.innerHeight / 2);
-        }, 4200);
-    }">Крутить колесо</button>
+            <button class="cta-button wheel-spin-btn" onclick="spinWheel()">Крутить колесо</button>
             <p id="wheelResult" class="secret"></p>
         </div>
     </section>
@@ -386,7 +360,7 @@
         if (audio.paused) {
             audio.play().then(() => {
                 setPlayingUI(true);
-                unlockAchievement('music', 'Твои треки', '🎵');
+                unlockAchievement('music', 'Найти свои треки', '🎵');
             }).catch(err => alert('Ошибка: ' + err.message));
         } else {
             audio.pause();
@@ -436,23 +410,23 @@
         isSpinning = true;
         unlockAchievement('wheel', 'Фортуна на твоей стороне', '🎡');
 
-        const randomDeg = Math.floor(Math.random() * 360) + 1800; // Минимум 5 оборотов
+        // Выбираем случайный выигрышный сектор (от 0 до 7)
+        const winningIndex = Math.floor(Math.random() * 8);
+
+        // Вычисляем угол. 8 секторов по 45 градусов.
+        // Стрелка смотрит вверх (на 0 градусов).
+        // Нам нужно, чтобы выигрышный сектор оказался под стрелкой.
+        // Добавляем 5 полных оборотов (1800 градусов) для красоты.
+        const targetDeg = 1800 + (360 - (winningIndex * 45));
+
         wheel.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
-        wheel.style.transform = `rotate(${randomDeg}deg)`;
+        wheel.style.transform = `rotate(${targetDeg}deg)`;
 
         setTimeout(() => {
             isSpinning = false;
-            // Вычисляем, на каком секторе остановились (360 / 8 = 45 градусов на сектор)
-            const normalizedDeg = randomDeg % 360;
-            const segmentIndex = Math.floor(normalizedDeg / 45);
 
-            // Так как колесо крутится по часовой стрелке, а сектора идут против (смотря как верстали),
-            // берем остаток от деления, чтобы понять, какой текст выпал.
-            // В CSS сектора повернуты на 0, 45, 90 и т.д. Проще вычислить визуально.
-            // Мы просто возьмем случайный текст, так как сектора визуальные, и текст в них уже есть.
-            // Но чтобы было честно, можно связать. Для простоты возьмем случайный.
-
-            const winningText = wheelTexts[Math.floor(Math.random() * wheelTexts.length)];
+            // Берем текст из массива по индексу выигрышного сектора
+            const winningText = wheelTexts[winningIndex];
 
             wheelResult.innerText = winningText;
             wheelResult.classList.add('visible');
@@ -660,6 +634,7 @@
 
     function petClicked() {
         unlockAchievement('pet', 'Твой личный кот', '🐈');
+
         const emoji = document.getElementById('petEmoji');
         const bubble = document.getElementById('petBubble');
 
@@ -679,7 +654,7 @@
                 createConfetti(window.innerWidth / 2, window.innerHeight / 2);
             }
             petChatter++;
-            return; // Выходим, чтобы не перебивать фразу
+            return;
         }
 
         const phrase = petPhrases[Math.floor(Math.random() * petPhrases.length)];
