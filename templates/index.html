@@ -43,31 +43,12 @@
             filter: blur(100px);
             opacity: 0.6;
             animation: auroraMove 20s infinite alternate ease-in-out;
-            transition: transform 0.2s ease-out; /* Плавность при движении мыши */
+            transition: transform 0.2s ease-out;
         }
 
-        .aurora-1 {
-            width: 60vw; height: 60vw;
-            background: radial-gradient(circle, #d4b8ff 0%, transparent 70%);
-            top: -10%; left: -10%;
-            animation-duration: 15s;
-        }
-
-        .aurora-2 {
-            width: 50vw; height: 50vw;
-            background: radial-gradient(circle, #ff9ec4 0%, transparent 70%);
-            bottom: -10%; right: -10%;
-            animation-duration: 18s;
-            animation-delay: -5s;
-        }
-
-        .aurora-3 {
-            width: 70vw; height: 70vw;
-            background: radial-gradient(circle, #ffc89e 0%, transparent 70%);
-            top: 20%; left: 20%;
-            animation-duration: 25s;
-            animation-delay: -10s;
-        }
+        .aurora-1 { width: 60vw; height: 60vw; background: radial-gradient(circle, #d4b8ff 0%, transparent 70%); top: -10%; left: -10%; animation-duration: 15s; }
+        .aurora-2 { width: 50vw; height: 50vw; background: radial-gradient(circle, #ff9ec4 0%, transparent 70%); bottom: -10%; right: -10%; animation-duration: 18s; animation-delay: -5s; }
+        .aurora-3 { width: 70vw; height: 70vw; background: radial-gradient(circle, #ffc89e 0%, transparent 70%); top: 20%; left: 20%; animation-duration: 25s; animation-delay: -10s; }
 
         @keyframes auroraMove {
             0% { transform: translate(0, 0) scale(1); }
@@ -77,9 +58,7 @@
 
         /* ============ ДЕКОР: ЗВЁЗДОЧКИ ============ */
         .bg-sparkle {
-            position: fixed;
-            width: 4px; height: 4px;
-            background: #7c3aed; border-radius: 50%;
+            position: fixed; width: 4px; height: 4px; background: #7c3aed; border-radius: 50%;
             pointer-events: none; z-index: 0; opacity: 0.5;
             box-shadow: 0 0 12px 2px rgba(124, 58, 237, 0.6);
             animation: sparkleTwinkle 4s ease-in-out infinite;
@@ -94,7 +73,6 @@
         .sp-4 { bottom: 22%; right: 12%; animation-delay: 1.5s; }
         .sp-5 { bottom: 35%; left: 15%; animation-delay: 2.5s; background: #ec4899; box-shadow: 0 0 12px 2px rgba(236,72,153,0.6); }
         .sp-6 { top: 65%; right: 25%; animation-delay: 3s; }
-
         @keyframes sparkleTwinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8) rotate(0deg); } 50% { opacity: 0.8; transform: scale(1.2) rotate(45deg); } }
 
         /* ============ ДЕКОР: ЛИНИИ ПО УГЛАМ ============ */
@@ -114,11 +92,28 @@
         @keyframes blinkDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
         /* ============ ЗАГОЛОВОК ============ */
-        .hero { margin-bottom: 100px; opacity: 0; animation: fadeUp 1.2s ease 0.2s forwards; }
+        .hero { margin-bottom: 80px; opacity: 0; animation: fadeUp 1.2s ease 0.2s forwards; text-align: center; }
         .hero .label { font-size: 0.7em; letter-spacing: 0.4em; text-transform: uppercase; color: #7c3aed; margin-bottom: 30px; }
         h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(4em, 12vw, 9em); line-height: 0.95; font-weight: 300; letter-spacing: -0.03em; color: #0a0a0a; margin-bottom: 30px; }
         h1 .accent { font-family: 'Marck Script', cursive; font-weight: 400; display: block; font-size: 0.9em; color: #7c3aed; margin-top: 0.05em; }
-        .subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4em; font-weight: 300; color: #555; max-width: 460px; line-height: 1.4; }
+        .subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4em; font-weight: 300; color: #555; line-height: 1.4; margin: 0 auto; }
+
+        /* ============ СЧЕТЧИК ДНЯ РОЖДЕНИЯ ============ */
+        .birthday-timer {
+            text-align: center;
+            margin: 40px auto;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.1);
+            opacity: 0; animation: fadeUp 1s ease 0.5s forwards;
+        }
+        .birthday-timer p { font-size: 0.9em; letter-spacing: 0.1em; text-transform: uppercase; color: #999; margin-bottom: 10px; }
+        .birthday-timer .days-left { font-family: 'Cormorant Garamond', serif; font-size: 4em; color: #7c3aed; line-height: 1; font-weight: 500; }
+        .birthday-timer .days-label { font-family: 'Cormorant Garamond', serif; font-size: 1.2em; color: #333; }
 
         /* ============ ЗАГОЛОВКИ СЕКЦИЙ ============ */
         .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 30px; padding-bottom: 16px; border-bottom: 1px solid rgba(124, 58, 237, 0.18); }
@@ -126,7 +121,7 @@
         .section-header .counter { font-size: 0.75em; letter-spacing: 0.2em; color: #999; }
 
         /* ============ СЛАЙДЕР ============ */
-        .slider-section { margin-bottom: 120px; opacity: 0; animation: fadeUp 1.2s ease 0.4s forwards; }
+        .slider-section { margin-bottom: 100px; opacity: 0; animation: fadeUp 1.2s ease 0.4s forwards; }
         .slider { position: relative; }
         .slider-track { position: relative; aspect-ratio: 4/5; overflow: hidden; background: #f0f0f0; border-radius: 12px; box-shadow: 0 30px 70px -25px rgba(124, 58, 237, 0.35); }
         .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease; }
@@ -140,7 +135,7 @@
         .slide-index .current { color: #7c3aed; font-weight: 500; }
 
         /* ============ МУЗЫКА ============ */
-        .music-section { margin-bottom: 120px; opacity: 0; animation: fadeUp 1.2s ease 0.5s forwards; }
+        .music-section { margin-bottom: 100px; opacity: 0; animation: fadeUp 1.2s ease 0.5s forwards; }
         .music-player { display: flex; align-items: center; gap: 40px; padding: 32px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 16px; box-shadow: 0 30px 70px -25px rgba(124, 58, 237, 0.35); }
 
         .vinyl-wrapper { position: relative; width: 160px; height: 160px; flex-shrink: 0; cursor: pointer; z-index: 10;}
@@ -206,7 +201,7 @@
         button.cta-button::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #7c3aed, #a78bfa); transform: translateY(101%); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); z-index: 1; }
         button.cta-button:hover::before { transform: translateY(0); }
         button.cta-button:hover span { color: #fff; }
-        .secret { font-family: 'Marck Script', cursive; font-size: 2.2em; color: #7c3aed; margin-top: 36px; opacity: 0; transform: translateY(12px); transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); min-height: 50px; }
+        .secret { font-family: 'Marck Script', cursive; font-size: 2em; color: #7c3aed; margin-top: 36px; opacity: 0; transform: translateY(12px); transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); min-height: 50px; line-height: 1.3; }
         .secret.visible { opacity: 1; transform: translateY(0); }
 
         /* ============ ПОДВАЛ ============ */
@@ -219,8 +214,10 @@
         @media (max-width: 700px) {
             .container { padding: 60px 22px 80px; }
             .top-bar { margin-bottom: 60px; font-size: 0.6em; }
-            .hero { margin-bottom: 60px; }
+            .hero { margin-bottom: 50px; }
             .subtitle { font-size: 1.15em; }
+            .birthday-timer { margin: 30px auto; padding: 20px; }
+            .birthday-timer .days-left { font-size: 3em; }
             .music-player { flex-direction: column; gap: 25px; padding: 25px 20px; text-align: center; }
             .vinyl-wrapper { width: 140px; height: 140px; }
             .track-info { width: 100%; }
@@ -229,7 +226,7 @@
             .letter .line { font-size: 1.25em; }
             .signature { font-size: 1.6em !important; }
             button.cta-button { padding: 18px 36px; font-size: 0.7em; }
-            .secret { font-size: 1.7em; }
+            .secret { font-size: 1.5em; }
             .footer { flex-direction: column; gap: 10px; }
             body::after { font-size: 60vw; right: -20px; }
             .bg-corner { width: 120px; height: 120px; }
@@ -241,100 +238,16 @@
         }
 
         /* ============ СЕКРЕТНОЕ ОКНО (СЕРДЦЕ НА ВЕСЬ ЭКРАН) ============ */
-        .secret-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(250, 240, 255, 0.95);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-        }
-
-        .secret-modal.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .heart-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .giant-heart {
-            position: absolute;
-            font-size: 120vw;
-            line-height: 1;
-            z-index: 1;
-            opacity: 0.15;
-            animation: heartbeat 1.5s infinite;
-            user-select: none;
-        }
-
-        .heart-text {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            max-width: 80%;
-            animation: fadeUp 1s ease forwards;
-        }
-
-        .heart-text h2 {
-            font-family: 'Marck Script', cursive;
-            color: #7c3aed;
-            font-size: 3em;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
-        }
-
-        .heart-text p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5em;
-            color: #333;
-            line-height: 1.4;
-            margin-bottom: 30px;
-            background: rgba(255,255,255,0.6);
-            padding: 15px;
-            border-radius: 15px;
-        }
-
-        .close-btn {
-            background: #7c3aed;
-            color: #fff;
-            border: none;
-            padding: 15px 35px;
-            border-radius: 30px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: 'Inter', sans-serif;
-            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
-        }
-
-        .close-btn:hover {
-            background: #6d28d9;
-            transform: scale(1.05);
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.05); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.05); }
-            60% { transform: scale(1); }
-            100% { transform: scale(1); }
-        }
+        .secret-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(250, 240, 255, 0.95); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+        .secret-modal.active { opacity: 1; pointer-events: auto; }
+        .heart-container { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        .giant-heart { position: absolute; font-size: 120vw; line-height: 1; z-index: 1; opacity: 0.15; animation: heartbeat 1.5s infinite; user-select: none; }
+        .heart-text { position: relative; z-index: 2; text-align: center; padding: 20px; max-width: 80%; animation: fadeUp 1s ease forwards; }
+        .heart-text h2 { font-family: 'Marck Script', cursive; color: #7c3aed; font-size: 3em; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(255,255,255,0.8); }
+        .heart-text p { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; color: #333; line-height: 1.4; margin-bottom: 30px; background: rgba(255,255,255,0.6); padding: 15px; border-radius: 15px; }
+        .close-btn { background: #7c3aed; color: #fff; border: none; padding: 15px 35px; border-radius: 30px; font-size: 1.2em; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3); }
+        .close-btn:hover { background: #6d28d9; transform: scale(1.05); }
+        @keyframes heartbeat { 0% { transform: scale(1); } 15% { transform: scale(1.05); } 30% { transform: scale(1); } 45% { transform: scale(1.05); } 60% { transform: scale(1); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -371,6 +284,13 @@
             <span class="accent">с любовью</span>
         </h1>
         <p class="subtitle">Самой лучшей сестре на свете — от того, кто всегда рядом.</p>
+
+        <!-- СЧЕТЧИК ДНЯ РОЖДЕНИЯ -->
+        <div class="birthday-timer">
+            <p>До твоего Дня Рождения осталось</p>
+            <div class="days-left" id="daysLeft">0</div>
+            <div class="days-label">дней</div>
+        </div>
     </header>
 
     <!-- СЛАЙДЕР -->
@@ -473,10 +393,10 @@
         </div>
     </section>
 
-    <!-- КНОПКА -->
+    <!-- КНОПКА С СЛУЧАЙНЫМИ ПОЖЕЛАНИЯМИ -->
     <section class="cta">
-        <button class="cta-button" onclick="showLove()">
-            <span>Открыть послание</span>
+        <button class="cta-button" onclick="showRandomWish()">
+            <span>Получить пожелание</span>
         </button>
         <p id="secret" class="secret"></p>
     </section>
@@ -594,11 +514,27 @@
     audio.addEventListener('timeupdate', () => { if (audio.duration) { progressFill.style.width = (audio.currentTime / audio.duration) * 100 + '%'; currentTimeEl.textContent = formatTime(audio.currentTime); } });
     function seekMusic(event) { const rect = event.currentTarget.getBoundingClientRect(); audio.currentTime = ((event.clientX - rect.left) / rect.width) * audio.duration; }
 
-    // Кнопка CTA
-    function showLove() {
+    // ============ СЛУЧАЙНЫЕ ПОЖЕЛАНИЯ ============
+    const wishes = [
+        "Ты самая красивая и умная!",
+        "Спасибо, что всегда выслушаешь.",
+        "Ты мой самый близкий человек в мире.",
+        "Пусть каждый твой день будет счастливым.",
+        "Ты делаешь этот мир лучше.",
+        "Я очень ценю всё, что ты для меня делаешь.",
+        "Улыбайся чаще, тебе очень идет!"
+    ];
+
+    function showRandomWish() {
         const el = document.getElementById("secret");
-        el.innerText = "Ты — лучшая. Спасибо, что ты есть.";
-        el.classList.add("visible");
+        const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+
+        // Анимация смены текста
+        el.classList.remove("visible");
+        setTimeout(() => {
+            el.innerText = randomWish;
+            el.classList.add("visible");
+        }, 200);
     }
 
     // Загружаем первый трек при старте
@@ -739,6 +675,36 @@
         if (aurora2) aurora2.style.transform = `translate(${-x}px, ${-y}px) scale(1.1)`;
         if (aurora3) aurora3.style.transform = `translate(${x * 0.5}px, ${-y * 0.5}px) scale(0.9)`;
     });
+
+    // ============ СЧЕТЧИК ДНЯ РОЖДЕНИЯ (3 НОЯБРЯ) ============
+    function updateBirthday() {
+        const today = new Date();
+        let year = today.getFullYear();
+
+        // Дата Дня Рождения (3 ноября)
+        let bday = new Date(year, 10, 3); // Месяцы начинаются с 0, поэтому 10 - это ноябрь
+
+        // Если ДР уже прошел в этом году, считаем до следующего
+        const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
+        if (endOfToday > bday) {
+            bday.setFullYear(year + 1);
+        }
+
+        const diffTime = bday - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        const el = document.getElementById('daysLeft');
+        if (el) {
+            // Если сегодня 3 ноября
+            if (today.getDate() === 3 && today.getMonth() === 10) {
+                el.innerText = "🎉";
+                el.nextElementSibling.innerText = "С Днём Рождения!";
+            } else {
+                el.innerText = diffDays;
+            }
+        }
+    }
+    updateBirthday();
 </script>
 
 </body>
