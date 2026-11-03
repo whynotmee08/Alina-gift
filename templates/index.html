@@ -15,11 +15,7 @@
         /* ============ ФОН ============ */
         body {
             font-family: 'Inter', sans-serif;
-            background:
-                radial-gradient(ellipse 90% 60% at 10% 0%, #e8d5ff 0%, transparent 55%),
-                radial-gradient(ellipse 80% 60% at 90% 100%, #ffd5e8 0%, transparent 55%),
-                radial-gradient(ellipse 70% 50% at 50% 40%, #ffe8d5 0%, transparent 60%),
-                linear-gradient(160deg, #f7f0ff 0%, #fdf2f8 40%, #fff4ec 70%, #f8f0ff 100%);
+            background: #fdfaf6;
             color: #0a0a0a;
             min-height: 100vh;
             line-height: 1.6;
@@ -35,25 +31,49 @@
             z-index: -1;
             overflow: hidden;
             pointer-events: none;
+            background: linear-gradient(160deg, #f7f0ff 0%, #fdf2f8 40%, #fff4ec 70%, #f8f0ff 100%);
         }
 
         .aurora {
             position: absolute;
             border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.6;
-            animation: auroraMove 20s infinite alternate ease-in-out;
-            transition: transform 0.2s ease-out;
+            filter: blur(120px);
+            opacity: 0.7;
+            will-change: transform;
         }
 
-        .aurora-1 { width: 60vw; height: 60vw; background: radial-gradient(circle, #d4b8ff 0%, transparent 70%); top: -10%; left: -10%; animation-duration: 15s; }
-        .aurora-2 { width: 50vw; height: 50vw; background: radial-gradient(circle, #ff9ec4 0%, transparent 70%); bottom: -10%; right: -10%; animation-duration: 18s; animation-delay: -5s; }
-        .aurora-3 { width: 70vw; height: 70vw; background: radial-gradient(circle, #ffc89e 0%, transparent 70%); top: 20%; left: 20%; animation-duration: 25s; animation-delay: -10s; }
+        .aurora-1 {
+            width: 70vw; height: 70vw;
+            background: radial-gradient(circle, #d4b8ff 0%, transparent 70%);
+            top: -20%; left: -10%;
+            animation: float1 25s ease-in-out infinite alternate;
+        }
 
-        @keyframes auroraMove {
+        .aurora-2 {
+            width: 60vw; height: 60vw;
+            background: radial-gradient(circle, #ff9ec4 0%, transparent 70%);
+            bottom: -20%; right: -10%;
+            animation: float2 20s ease-in-out infinite alternate;
+        }
+
+        .aurora-3 {
+            width: 80vw; height: 80vw;
+            background: radial-gradient(circle, #ffc89e 0%, transparent 70%);
+            top: 10%; left: 10%;
+            animation: float3 30s ease-in-out infinite alternate;
+        }
+
+        @keyframes float1 {
             0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(10vw, 10vh) scale(1.1); }
-            100% { transform: translate(-5vw, 5vh) scale(0.9); }
+            100% { transform: translate(15vw, 10vh) scale(1.2); }
+        }
+        @keyframes float2 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-10vw, -15vh) scale(1.1); }
+        }
+        @keyframes float3 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-15vw, 15vh) scale(0.8); }
         }
 
         /* ============ ДЕКОР: ЗВЁЗДОЧКИ ============ */
@@ -260,7 +280,6 @@
 </div>
 
 <!-- Декор -->
-<div class="bg-grain"></div>
 <div class="bg-corner corner-tl"></div>
 <div class="bg-corner corner-br"></div>
 <div class="bg-sparkle sp-1"></div>
@@ -289,7 +308,7 @@
         <div class="birthday-timer">
             <p>До твоего Дня Рождения осталось</p>
             <div class="days-left" id="daysLeft">0</div>
-            <div class="days-label">дней</div>
+            <div class="days-label" id="daysLabel">дней</div>
         </div>
     </header>
 
@@ -529,7 +548,6 @@
         const el = document.getElementById("secret");
         const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
 
-        // Анимация смены текста
         el.classList.remove("visible");
         setTimeout(() => {
             el.innerText = randomWish;
@@ -662,20 +680,6 @@
 
     setTimeout(typeWriter, 2500);
 
-    // ============ ПАРАЛЛАКС ДЛЯ ФОНА ============
-    document.addEventListener('mousemove', (e) => {
-        const aurora1 = document.querySelector('.aurora-1');
-        const aurora2 = document.querySelector('.aurora-2');
-        const aurora3 = document.querySelector('.aurora-3');
-
-        const x = (e.clientX / window.innerWidth - 0.5) * 40;
-        const y = (e.clientY / window.innerHeight - 0.5) * 40;
-
-        if (aurora1) aurora1.style.transform = `translate(${x}px, ${y}px) scale(1)`;
-        if (aurora2) aurora2.style.transform = `translate(${-x}px, ${-y}px) scale(1.1)`;
-        if (aurora3) aurora3.style.transform = `translate(${x * 0.5}px, ${-y * 0.5}px) scale(0.9)`;
-    });
-
     // ============ СЧЕТЧИК ДНЯ РОЖДЕНИЯ (3 НОЯБРЯ) ============
     function updateBirthday() {
         const today = new Date();
@@ -694,11 +698,13 @@
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
         const el = document.getElementById('daysLeft');
+        const label = document.getElementById('daysLabel');
+
         if (el) {
             // Если сегодня 3 ноября
             if (today.getDate() === 3 && today.getMonth() === 10) {
                 el.innerText = "🎉";
-                el.nextElementSibling.innerText = "С Днём Рождения!";
+                if (label) label.innerText = "С Днём Рождения!";
             } else {
                 el.innerText = diffDays;
             }
