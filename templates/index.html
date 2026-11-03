@@ -163,8 +163,13 @@
     </section>
 
     <!-- СЕКРЕТНОЕ СЛОВО -->
+        <!-- СЕКРЕТНОЕ СЛОВО -->
     <section class="secret-word-section">
         <p class="secret-word-label">Введи секретные слова:</p>
+
+        <!-- Подсказка с ID, чтобы можно было её менять -->
+        <p class="secret-hint" id="secretHint">Кто всегда придет на помощь и не бросит в беде? (два слова)</p>
+
         <div class="secret-word-input-wrap">
             <input type="text" id="secretInput" class="secret-input" placeholder="..." autocomplete="off">
             <button class="secret-submit" onclick="checkSecretWord()">Проверить</button>
@@ -562,23 +567,38 @@
         }, 3000);
     }
 
-    // ============ СЕКРЕТНОЕ СЛОВО ============
+      // ============ СЕКРЕТНОЕ СЛОВО ============
+    let secretAttempts = 0; // Счетчик попыток
+
     function checkSecretWord() {
         const input = document.getElementById('secretInput');
         const msg = document.getElementById('secretMessage');
+        const hint = document.getElementById('secretHint');
         const word = input.value.trim().toLowerCase();
 
-        if (word === 'твой наилучший брат' || word === 'алина') {
-            msg.innerText = "Ты нашла секрет! Молодец! 💜🎉";
+        if (word === 'наилучший брат' || word === 'лучший брат' || word === 'брат') {
+            // Успех!
+            msg.innerText = "Ты нашла секрет! Я тебя обожаю! 💜🎉";
             msg.className = "secret-word-message success";
+            hint.style.opacity = "0"; // Прячем подсказку, раз угадала
             createConfetti(window.innerWidth / 2, window.innerHeight / 2);
             input.value = '';
         } else {
+            // Ошибка
+            secretAttempts++;
             msg.innerText = "Хм, не то слово... Попробуй еще!";
             msg.className = "secret-word-message error";
+
+            // Даем подсказки в зависимости от количества попыток
+            if (secretAttempts === 1) {
+                hint.innerText = "Подсказка: это тот, кто всегда защитит. (2 слова)";
+            } else if (secretAttempts === 2) {
+                hint.innerText = "Подсказка: первое слово — 'наилучший'.";
+            } else {
+                hint.innerText = "Подсказка: начинается на 'Наи...', а второе слово — 'брат'.";
+            }
         }
     }
-
     // ============ ТЕМНАЯ ТЕМА ============
     function toggleTheme() {
         const body = document.body;

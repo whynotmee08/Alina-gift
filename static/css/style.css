@@ -198,6 +198,8 @@ button.cta-button:hover span { color: #fff; }
 .secret-word-message { margin-top: 15px; font-weight: 500; min-height: 24px; font-family: 'Cormorant Garamond', serif; font-size: 1.2em; }
 .secret-word-message.success { color: #10b981; }
 .secret-word-message.error { color: #ef4444; }
+.secret-hint {font-size: 0.85em;color: #999;margin-bottom: 15px;font-family: 'Inter', sans-serif;font-style: italic;transition: all 0.3s ease; /* Плавная смена текста */min-height: 20px; /* Чтобы верстка не прыгала */
+}
 
 /* ============ ПОДВАЛ ============ */
 .footer { margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(124, 58, 237, 0.18); display: flex; justify-content: space-between; font-size: 0.7em; letter-spacing: 0.2em; text-transform: uppercase; color: #999; transition: border-color 0.5s; }
