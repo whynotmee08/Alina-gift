@@ -269,6 +269,11 @@
             .playlist-title { font-size: 1.05em; }
         }
     <style>
+         @keyframes floatUp {
+        to {
+            transform: translateY(-120vh) rotate(20deg);
+        }
+    }
             <script>
     /* ============ ЛЕТЯЩИЕ ШАРИКИ ============ */
     .balloon {
@@ -564,8 +569,6 @@
 
         balloon.innerText = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
         balloon.style.left = Math.random() * 100 + 'vw';
-        balloon.style.bottom = '10px'; // Временно, чтобы точно увидеть
-        balloon.style.position = 'fixed'; // Временно
 
         const size = Math.random() * 20 + 20;
         balloon.style.fontSize = size + 'px';
