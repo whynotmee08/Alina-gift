@@ -11,6 +11,9 @@
 </head>
 <body>
 
+<!-- Кнопка переключения темы -->
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Сменить тему">🌙</button>
+
 <!-- Живой фон (Сияние) -->
 <div class="aurora-bg">
     <div class="aurora aurora-1"></div>
@@ -157,6 +160,16 @@
             <span>Получить пожелание</span>
         </button>
         <p id="secret" class="secret"></p>
+    </section>
+
+    <!-- СЕКРЕТНОЕ СЛОВО -->
+    <section class="secret-word-section">
+        <p class="secret-word-label">Введи наше секретное слово:</p>
+        <div class="secret-word-input-wrap">
+            <input type="text" id="secretInput" class="secret-input" placeholder="..." autocomplete="off">
+            <button class="secret-submit" onclick="checkSecretWord()">Проверить</button>
+        </div>
+        <p id="secretMessage" class="secret-word-message"></p>
     </section>
 
     <footer class="footer">
@@ -341,13 +354,10 @@
             score++;
             scoreEl.innerText = score;
 
-            // Если набрали 15 сердечек — сюрприз
-            if (score === 15 && !secretUnlocked) {
+            // Достижение на 50 шариков
+            if (score === 50 && !secretUnlocked) {
                 secretUnlocked = true;
-                createConfetti(window.innerWidth / 2, window.innerHeight / 2);
-                setTimeout(() => {
-                    alert("Ты поймала 15 сердечек! 🎉 Ты лучшая!");
-                }, 300);
+                showAchievement();
             }
         };
 
@@ -393,6 +403,31 @@
     }
 
     setInterval(createBalloon, 2000);
+
+    // ============ ДОСТИЖЕНИЕ ============
+    function showAchievement() {
+        // Вспышка конфетти на весь экран
+        createConfetti(window.innerWidth / 2, window.innerHeight / 2);
+        setTimeout(() => createConfetti(window.innerWidth / 2, window.innerHeight / 2), 300);
+
+        // Создаем плашку
+        const ach = document.createElement('div');
+        ach.className = 'achievement-popup';
+        ach.innerHTML = `
+            <div class="ach-icon">🏆</div>
+            <div class="ach-text">
+                <strong>Достижение получено!</strong><br>
+                Лучшая сестра в мире
+            </div>
+        `;
+        document.body.appendChild(ach);
+
+        // Убираем плашку через 4 секунды
+        setTimeout(() => {
+            ach.classList.add('hide');
+            setTimeout(() => ach.remove(), 500);
+        }, 4000);
+    }
 
     // ============ СЕКРЕТНОЕ ОКНО (КОНВЕРТ) ============
     let secretShown = false;
@@ -493,7 +528,6 @@
     // ============ ИНТЕРАКТИВНЫЙ ПИТОМЕЦ ============
     const petPhrases = [
         "Мяу! Ты самая лучшая!",
-        "Мурр... Я тебя обожаю.",
         "Улыбнись! Ты очень красивая.",
         "Мяу-мяу! Спасибо, что ты есть.",
         "Мур! Ты делаешь этот мир добрее."
@@ -526,6 +560,37 @@
             bubble.classList.remove('show');
             emoji.innerText = originalEmoji;
         }, 3000);
+    }
+
+    // ============ СЕКРЕТНОЕ СЛОВО ============
+    function checkSecretWord() {
+        const input = document.getElementById('secretInput');
+        const msg = document.getElementById('secretMessage');
+        const word = input.value.trim().toLowerCase();
+
+        if (word === 'твой наилучший брат' || word === 'алина') {
+            msg.innerText = "Ты нашла секрет! Молодец! 💜🎉";
+            msg.className = "secret-word-message success";
+            createConfetti(window.innerWidth / 2, window.innerHeight / 2);
+            input.value = '';
+        } else {
+            msg.innerText = "Хм, не то слово... Попробуй еще!";
+            msg.className = "secret-word-message error";
+        }
+    }
+
+    // ============ ТЕМНАЯ ТЕМА ============
+    function toggleTheme() {
+        const body = document.body;
+        const btn = document.getElementById('themeToggle');
+
+        body.classList.toggle('dark-theme');
+
+        if (body.classList.contains('dark-theme')) {
+            btn.innerText = '☀️';
+        } else {
+            btn.innerText = '🌙';
+        }
     }
 </script>
 

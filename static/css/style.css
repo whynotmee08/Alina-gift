@@ -2,10 +2,10 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* ============ ФОН ============ */
+/* ============ БАЗОВЫЕ СТИЛИ ============ */
 body {
     font-family: 'Inter', sans-serif;
-    background: #f7f0ff; /* Запасной цвет, если градиент не загрузится */
+    background: #f7f0ff;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -14,52 +14,36 @@ body {
     -webkit-font-smoothing: antialiased;
     position: relative;
     min-height: 100vh;
+    transition: background 0.5s ease, color 0.5s ease;
 }
 
-/* Слой сияния */
+/* ============ ЖИВОЙ ФОН (СИЯНИЕ) ============ */
 .aurora-bg {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1; /* Фон всегда сзади */
+    z-index: -1;
     background: linear-gradient(160deg, #f7f0ff 0%, #fdf2f8 40%, #fff4ec 70%, #f8f0ff 100%);
     overflow: hidden;
     pointer-events: none;
+    transition: opacity 0.5s ease;
 }
 
-/* Сами пятна */
 .aurora {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px); /* Чуть меньше размытие, чтобы было видно */
-    opacity: 0.8; /* Сделали ярче */
+    filter: blur(80px);
+    opacity: 0.8;
 }
 
-.aurora-1 {
-    width: 600px; height: 600px;
-    background: #c8a2ff;
-    top: -10%; left: -10%;
-    animation: moveA 20s infinite alternate;
-}
-
-.aurora-2 {
-    width: 500px; height: 500px;
-    background: #ff9ec4;
-    bottom: -10%; right: -10%;
-    animation: moveB 25s infinite alternate;
-}
-
-.aurora-3 {
-    width: 700px; height: 700px;
-    background: #ffc89e;
-    top: 30%; left: 30%;
-    animation: moveC 30s infinite alternate;
-}
+.aurora-1 { width: 600px; height: 600px; background: #c8a2ff; top: -10%; left: -10%; animation: moveA 20s infinite alternate; }
+.aurora-2 { width: 500px; height: 500px; background: #ff9ec4; bottom: -10%; right: -10%; animation: moveB 25s infinite alternate; }
+.aurora-3 { width: 700px; height: 700px; background: #ffc89e; top: 30%; left: 30%; animation: moveC 30s infinite alternate; }
 
 @keyframes moveA { 0% { transform: translate(0, 0); } 100% { transform: translate(100px, 100px); } }
 @keyframes moveB { 0% { transform: translate(0, 0); } 100% { transform: translate(-100px, -100px); } }
 @keyframes moveC { 0% { transform: translate(0, 0); } 100% { transform: translate(-50px, 150px); } }
 
-/* ============ ДЕКОР: ЗВЁЗДОЧКИ ============ */
+/* ============ ДЕКОР ============ */
 .bg-sparkle {
     position: fixed; width: 4px; height: 4px; background: #7c3aed; border-radius: 50%;
     pointer-events: none; z-index: 0; opacity: 0.5;
@@ -78,7 +62,6 @@ body {
 .sp-6 { top: 65%; right: 25%; animation-delay: 3s; }
 @keyframes sparkleTwinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8) rotate(0deg); } 50% { opacity: 0.8; transform: scale(1.2) rotate(45deg); } }
 
-/* ============ ДЕКОР: ЛИНИИ ПО УГЛАМ ============ */
 .bg-corner { position: fixed; width: 220px; height: 220px; pointer-events: none; z-index: 0; opacity: 0.4; color: #7c3aed; }
 .corner-tl { top: 30px; left: 30px; border-top: 1px solid currentColor; border-left: 1px solid currentColor; border-top-left-radius: 4px; }
 .corner-br { bottom: 30px; right: 30px; border-bottom: 1px solid currentColor; border-right: 1px solid currentColor; border-bottom-right-radius: 4px; }
@@ -89,7 +72,7 @@ body {
 /* ============ КОНТЕЙНЕР ============ */
 .container { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 100px 32px 120px; }
 
-/* ============ ВЕРХНЯЯ МЕТКА И СЧЕТЧИК ============ */
+/* ============ ВЕРХНЯЯ ПАНЕЛЬ ============ */
 .top-bar { display: flex; justify-content: space-between; align-items: center; font-size: 0.7em; letter-spacing: 0.3em; text-transform: uppercase; color: #7c3aed; margin-bottom: 100px; padding-bottom: 20px; border-bottom: 1px solid rgba(124, 58, 237, 0.2); opacity: 0; animation: fadeUp 1s ease 0.1s forwards; }
 .top-bar .dot-live { display: inline-block; width: 6px; height: 6px; background: #7c3aed; border-radius: 50%; margin-right: 10px; animation: blinkDot 2s ease-in-out infinite; }
 .score-board { font-weight: 600; color: #ff4d6d; font-size: 1.2em; }
@@ -98,9 +81,9 @@ body {
 /* ============ ЗАГОЛОВОК ============ */
 .hero { margin-bottom: 80px; opacity: 0; animation: fadeUp 1.2s ease 0.2s forwards; text-align: center; }
 .hero .label { font-size: 0.7em; letter-spacing: 0.4em; text-transform: uppercase; color: #7c3aed; margin-bottom: 30px; }
-h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(4em, 12vw, 9em); line-height: 0.95; font-weight: 300; letter-spacing: -0.03em; color: #0a0a0a; margin-bottom: 30px; }
+h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(4em, 12vw, 9em); line-height: 0.95; font-weight: 300; letter-spacing: -0.03em; color: #0a0a0a; margin-bottom: 30px; transition: color 0.5s; }
 h1 .accent { font-family: 'Marck Script', cursive; font-weight: 400; display: block; font-size: 0.9em; color: #7c3aed; margin-top: 0.05em; }
-.subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4em; font-weight: 300; color: #555; line-height: 1.4; margin: 0 auto; }
+.subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4em; font-weight: 300; color: #555; line-height: 1.4; margin: 0 auto; transition: color 0.5s; }
 
 /* ============ СЧЕТЧИК ДНЯ РОЖДЕНИЯ ============ */
 .birthday-timer {
@@ -109,14 +92,15 @@ h1 .accent { font-family: 'Marck Script', cursive; font-weight: 400; display: bl
     border-radius: 20px; border: 1px solid rgba(124, 58, 237, 0.15);
     max-width: 400px; box-shadow: 0 10px 30px rgba(124, 58, 237, 0.1);
     opacity: 0; animation: fadeUp 1s ease 0.5s forwards;
+    transition: background 0.5s;
 }
 .birthday-timer p { font-size: 0.9em; letter-spacing: 0.1em; text-transform: uppercase; color: #999; margin-bottom: 10px; }
 .birthday-timer .days-left { font-family: 'Cormorant Garamond', serif; font-size: 4em; color: #7c3aed; line-height: 1; font-weight: 500; }
-.birthday-timer .days-label { font-family: 'Cormorant Garamond', serif; font-size: 1.2em; color: #333; }
+.birthday-timer .days-label { font-family: 'Cormorant Garamond', serif; font-size: 1.2em; color: #333; transition: color 0.5s; }
 
 /* ============ ЗАГОЛОВКИ СЕКЦИЙ ============ */
-.section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 30px; padding-bottom: 16px; border-bottom: 1px solid rgba(124, 58, 237, 0.18); }
-.section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; font-style: italic; color: #0a0a0a; }
+.section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 30px; padding-bottom: 16px; border-bottom: 1px solid rgba(124, 58, 237, 0.18); transition: border-color 0.5s; }
+.section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; font-style: italic; color: #0a0a0a; transition: color 0.5s; }
 .section-header .counter { font-size: 0.75em; letter-spacing: 0.2em; color: #999; }
 
 /* ============ СЛАЙДЕР ============ */
@@ -135,7 +119,7 @@ h1 .accent { font-family: 'Marck Script', cursive; font-weight: 400; display: bl
 
 /* ============ МУЗЫКА ============ */
 .music-section { margin-bottom: 100px; opacity: 0; animation: fadeUp 1.2s ease 0.5s forwards; }
-.music-player { display: flex; align-items: center; gap: 40px; padding: 32px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 16px; box-shadow: 0 30px 70px -25px rgba(124, 58, 237, 0.35); }
+.music-player { display: flex; align-items: center; gap: 40px; padding: 32px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 16px; box-shadow: 0 30px 70px -25px rgba(124, 58, 237, 0.35); transition: background 0.5s, border-color 0.5s; }
 
 .vinyl-wrapper { position: relative; width: 160px; height: 160px; flex-shrink: 0; cursor: pointer; z-index: 10;}
 .vinyl { width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle at center, #1a1a1a 0%, #1a1a1a 18%, #0a0a0a 18.5%, #2a2a2a 20%, #0a0a0a 22%, #2a2a2a 24%, #0a0a0a 26%, #2a2a2a 28%, #0a0a0a 30%, #1a1a1a 35%, #0a0a0a 40%, #2a2a2a 42%, #0a0a0a 45%, #2a2a2a 48%, #0a0a0a 50%, #2a2a2a 52%, #0a0a0a 55%, #1a1a1a 60%, #0a0a0a 100%); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1) inset; position: relative; animation: spin 3s linear infinite; animation-play-state: paused; }
@@ -151,7 +135,7 @@ h1 .accent { font-family: 'Marck Script', cursive; font-weight: 400; display: bl
 @keyframes pulseRing { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.2); opacity: 0; } }
 
 .track-info { flex: 1; min-width: 0; }
-.track-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6em; font-weight: 400; font-style: italic; color: #0a0a0a; margin-bottom: 8px; line-height: 1.2; }
+.track-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6em; font-weight: 400; font-style: italic; color: #0a0a0a; margin-bottom: 8px; line-height: 1.2; transition: color 0.5s; }
 .track-artist { font-size: 0.75em; letter-spacing: 0.25em; text-transform: uppercase; color: #999; margin-bottom: 24px; }
 .progress-wrap { width: 100%; margin-bottom: 20px; }
 .progress-bar { width: 100%; height: 1px; background: rgba(124, 58, 237, 0.2); position: relative; cursor: pointer; }
@@ -168,7 +152,7 @@ h1 .accent { font-family: 'Marck Script', cursive; font-weight: 400; display: bl
 .play-icon { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #0a0a0a; display: flex; align-items: center; justify-content: center; font-size: 0.8em; transition: all 0.3s ease; }
 .play-button.playing .play-icon { background: #7c3aed; border-color: #7c3aed; color: #fff; }
 
-/* ============ СПИСОК ТРЕКОВ ============ */
+/* ============ ПЛЕЙЛИСТ ============ */
 .playlist { margin-top: 24px; border-top: 1px solid rgba(124, 58, 237, 0.15); }
 .playlist-item { display: flex; align-items: center; gap: 18px; padding: 18px 16px; border-bottom: 1px solid rgba(124, 58, 237, 0.1); cursor: pointer; transition: all 0.3s ease; position: relative; }
 .playlist-item:hover { background: rgba(124, 58, 237, 0.04); padding-left: 22px; }
@@ -177,7 +161,7 @@ h1 .accent { font-family: 'Marck Script', cursive; font-weight: 400; display: bl
 .playlist-num { font-family: 'Cormorant Garamond', serif; font-size: 1.1em; color: #bbb; width: 30px; flex-shrink: 0; transition: color 0.3s ease; }
 .playlist-item.active .playlist-num { color: #7c3aed; }
 .playlist-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
-.playlist-title { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.15em; color: #0a0a0a; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.playlist-title { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.15em; color: #0a0a0a; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.5s; }
 .playlist-artist { display: block; font-size: 0.65em; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
 .playlist-eq { display: flex; align-items: flex-end; gap: 2px; height: 14px; opacity: 0; transition: opacity 0.3s ease; }
 .playlist-eq span { width: 2px; height: 4px; background: #7c3aed; border-radius: 1px; }
@@ -190,10 +174,10 @@ h1 .accent { font-family: 'Marck Script', cursive; font-weight: 400; display: bl
 /* ============ ПИСЬМО ============ */
 .letter-section { margin-bottom: 100px; opacity: 0; animation: fadeUp 1.2s ease 0.6s forwards; }
 .letter { position: relative; padding: 20px 0 20px 40px; border-left: 1px solid #7c3aed; min-height: 250px; }
-.letter .line { font-family: 'Cormorant Garamond', serif; font-size: 1.6em; line-height: 1.6; font-weight: 300; color: #333; margin-bottom: 14px; min-height: 1.6em; }
+.letter .line { font-family: 'Cormorant Garamond', serif; font-size: 1.6em; line-height: 1.6; font-weight: 300; color: #333; margin-bottom: 14px; min-height: 1.6em; transition: color 0.5s; }
 .signature { font-family: 'Marck Script', cursive !important; font-size: 2em !important; color: #7c3aed !important; margin-top: 32px !important; text-align: right; padding-right: 20px; }
 
-/* ============ КНОПКА CTA ============ */
+/* ============ CTA ============ */
 .cta { text-align: center; opacity: 0; animation: fadeUp 1s ease 4.8s forwards; padding-top: 40px; border-top: 1px solid rgba(124, 58, 237, 0.18); }
 button.cta-button { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.75em; letter-spacing: 0.3em; text-transform: uppercase; color: #0a0a0a; background: transparent; border: 1px solid #0a0a0a; padding: 22px 52px; cursor: pointer; transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1); position: relative; overflow: hidden; }
 button.cta-button span { position: relative; z-index: 2; transition: color 0.5s ease; }
@@ -203,11 +187,95 @@ button.cta-button:hover span { color: #fff; }
 .secret { font-family: 'Marck Script', cursive; font-size: 2em; color: #7c3aed; margin-top: 36px; opacity: 0; transform: translateY(12px); transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); min-height: 50px; line-height: 1.3; }
 .secret.visible { opacity: 1; transform: translateY(0); }
 
+/* ============ СЕКРЕТНОЕ СЛОВО ============ */
+.secret-word-section { text-align: center; padding: 40px 0; border-top: 1px solid rgba(124, 58, 237, 0.18); margin-bottom: 50px; }
+.secret-word-label { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2em; color: #555; margin-bottom: 20px; transition: color 0.5s; }
+.secret-word-input-wrap { display: flex; gap: 10px; justify-content: center; max-width: 400px; margin: 0 auto; }
+.secret-input { flex: 1; padding: 12px 20px; border-radius: 30px; border: 1px solid rgba(124, 58, 237, 0.3); background: rgba(255,255,255,0.7); font-family: 'Inter', sans-serif; font-size: 1em; color: #0a0a0a; outline: none; transition: 0.3s; }
+.secret-input:focus { border-color: #7c3aed; box-shadow: 0 0 10px rgba(124, 58, 237, 0.2); }
+.secret-submit { background: #7c3aed; color: #fff; border: none; padding: 12px 24px; border-radius: 30px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9em; cursor: pointer; transition: 0.3s; }
+.secret-submit:hover { background: #6d28d9; }
+.secret-word-message { margin-top: 15px; font-weight: 500; min-height: 24px; font-family: 'Cormorant Garamond', serif; font-size: 1.2em; }
+.secret-word-message.success { color: #10b981; }
+.secret-word-message.error { color: #ef4444; }
+
 /* ============ ПОДВАЛ ============ */
-.footer { margin-top: 100px; padding-top: 30px; border-top: 1px solid rgba(124, 58, 237, 0.18); display: flex; justify-content: space-between; font-size: 0.7em; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+.footer { margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(124, 58, 237, 0.18); display: flex; justify-content: space-between; font-size: 0.7em; letter-spacing: 0.2em; text-transform: uppercase; color: #999; transition: border-color 0.5s; }
 
 /* ============ АНИМАЦИИ ============ */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============ ДОСТИЖЕНИЕ ============ */
+.achievement-popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    color: #ffd700;
+    padding: 15px 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    z-index: 10000;
+    opacity: 0;
+    animation: slideDown 0.5s ease forwards;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+.achievement-popup.hide { animation: slideUp 0.5s ease forwards; }
+.ach-icon { font-size: 2em; }
+.ach-text { font-family: 'Inter', sans-serif; font-size: 0.9em; line-height: 1.4; color: #fff; }
+@keyframes slideDown { to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+@keyframes slideUp { to { opacity: 0; transform: translateX(-50%) translateY(-100px); } }
+
+/* ============ ТЕМНАЯ ТЕМА ============ */
+.theme-toggle { position: fixed; top: 20px; right: 20px; z-index: 10001; background: rgba(255,255,255,0.8); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 50%; width: 45px; height: 45px; font-size: 1.2em; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+.theme-toggle:hover { transform: scale(1.1); background: #fff; }
+
+body.dark-theme { background: #0f0a1f; color: #f0e6ff; }
+body.dark-theme h1, body.dark-theme .section-header h2, body.dark-theme .track-title, body.dark-theme .playlist-title, body.dark-theme .letter .line { color: #f0e6ff; }
+body.dark-theme .subtitle, body.dark-theme .secret-word-label, body.dark-theme .letter .line { color: #bbb; }
+body.dark-theme .birthday-timer, body.dark-theme .music-player { background: rgba(30, 20, 50, 0.8); border-color: rgba(124, 58, 237, 0.3); }
+body.dark-theme .birthday-timer .days-label { color: #ddd; }
+body.dark-theme .secret-input { background: rgba(30, 20, 50, 0.8); color: #fff; border-color: rgba(124, 58, 237, 0.5); }
+body.dark-theme .theme-toggle { background: rgba(30, 20, 50, 0.8); color: #fff; border-color: rgba(255, 215, 0, 0.3); }
+body.dark-theme .section-header { border-color: rgba(124, 58, 237, 0.3); }
+body.dark-theme .top-bar, body.dark-theme .footer { border-color: rgba(124, 58, 237, 0.3); color: #aaa; }
+body.dark-theme .aurora-bg { background: linear-gradient(160deg, #0f0a1f 0%, #1a0f28 50%, #0f0a1f 100%); }
+body.dark-theme .aurora-1 { background: #5a2d9e; opacity: 0.5; }
+body.dark-theme .aurora-2 { background: #9e2d6b; opacity: 0.4; }
+body.dark-theme .aurora-3 { background: #9e6b2d; opacity: 0.4; }
+
+/* ============ КОНВЕРТ ============ */
+.secret-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(250, 240, 255, 0.95); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+.secret-modal.active { opacity: 1; pointer-events: auto; }
+.envelope { position: absolute; width: 300px; height: 200px; background: #fff; border-radius: 10px; box-shadow: 0 20px 50px rgba(124, 58, 237, 0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease; z-index: 2; }
+.envelope::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 150px solid transparent; border-right: 150px solid transparent; border-top: 100px solid #e8d5ff; border-radius: 10px 10px 0 0; z-index: 3; transition: transform 0.6s; transform-origin: top; }
+.envelope.open { transform: translateY(-100px) scale(0.9); opacity: 0; pointer-events: none; }
+.wax-seal { width: 60px; height: 60px; background: #7c3aed; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em; z-index: 4; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s; }
+.envelope:hover .wax-seal { transform: scale(1.1); background: #6d28d9; }
+.envelope-text { position: absolute; bottom: 20px; font-family: 'Marck Script', cursive; font-size: 1.2em; color: #7c3aed; z-index: 2; }
+.heart-container { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 1s ease 0.5s; z-index: 1; }
+.heart-container.show { opacity: 1; pointer-events: auto; }
+.giant-heart { position: absolute; font-size: 120vw; line-height: 1; z-index: 1; opacity: 0.15; animation: heartbeat 1.5s infinite; user-select: none; }
+.heart-text { position: relative; z-index: 2; text-align: center; padding: 20px; max-width: 80%; animation: fadeUp 1s ease forwards; }
+.heart-text h2 { font-family: 'Marck Script', cursive; color: #7c3aed; font-size: 3em; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(255,255,255,0.8); }
+.heart-text p { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; color: #333; line-height: 1.4; margin-bottom: 30px; background: rgba(255,255,255,0.6); padding: 15px; border-radius: 15px; }
+.close-btn { background: #7c3aed; color: #fff; border: none; padding: 15px 35px; border-radius: 30px; font-size: 1.2em; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3); }
+.close-btn:hover { background: #6d28d9; transform: scale(1.05); }
+@keyframes heartbeat { 0% { transform: scale(1); } 15% { transform: scale(1.05); } 30% { transform: scale(1); } 45% { transform: scale(1.05); } 60% { transform: scale(1); } 100% { transform: scale(1); } }
+
+/* ============ ПИТОМЕЦ ============ */
+.pet-container { position: fixed; bottom: 20px; right: 20px; z-index: 10000; cursor: pointer; display: flex; flex-direction: column; align-items: flex-end; user-select: none; }
+.pet-bubble { background: #fff; color: #7c3aed; padding: 10px 15px; border-radius: 20px 20px 0 20px; font-family: 'Marck Script', cursive; font-size: 1.2em; box-shadow: 0 5px 15px rgba(124, 58, 237, 0.2); border: 1px solid rgba(124, 58, 237, 0.2); margin-bottom: 10px; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none; white-space: nowrap; }
+.pet-bubble.show { opacity: 1; transform: translateY(0); }
+.pet-emoji { font-size: 4em; line-height: 1; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.15)); animation: petBounce 3s ease-in-out infinite; transition: transform 0.2s; }
+.pet-container:hover .pet-emoji { transform: scale(1.1) rotate(-5deg); }
+@keyframes petBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.pet-emoji.happy { animation: petHappy 0.5s ease; }
+@keyframes petHappy { 0% { transform: scale(1); } 50% { transform: scale(1.3) rotate(10deg); } 100% { transform: scale(1); } }
 
 /* ============ АДАПТИВ ============ */
 @media (max-width: 700px) {
@@ -234,61 +302,8 @@ button.cta-button:hover span { color: #fff; }
     .playlist-item { padding: 16px 12px; gap: 14px; }
     .playlist-item:hover, .playlist-item.active { padding-left: 16px; }
     .playlist-title { font-size: 1.05em; }
-}
-
-/* ============ СЕКРЕТНОЕ ОКНО (КОНВЕРТ) ============ */
-.secret-modal {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(250, 240, 255, 0.95); backdrop-filter: blur(10px);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
-}
-.secret-modal.active { opacity: 1; pointer-events: auto; }
-
-.envelope {
-    position: absolute; width: 300px; height: 200px; background: #fff; border-radius: 10px;
-    box-shadow: 0 20px 50px rgba(124, 58, 237, 0.3); cursor: pointer; display: flex;
-    align-items: center; justify-content: center;
-    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease; z-index: 2;
-}
-.envelope::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 0; height: 0;
-    border-left: 150px solid transparent; border-right: 150px solid transparent;
-    border-top: 100px solid #e8d5ff; border-radius: 10px 10px 0 0;
-    z-index: 3; transition: transform 0.6s; transform-origin: top;
-}
-.envelope.open { transform: translateY(-100px) scale(0.9); opacity: 0; pointer-events: none; }
-
-.wax-seal { width: 60px; height: 60px; background: #7c3aed; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em; z-index: 4; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s; }
-.envelope:hover .wax-seal { transform: scale(1.1); background: #6d28d9; }
-.envelope-text { position: absolute; bottom: 20px; font-family: 'Marck Script', cursive; font-size: 1.2em; color: #7c3aed; z-index: 2; }
-
-.heart-container {
-    position: absolute; width: 100%; height: 100%; display: flex;
-    flex-direction: column; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: opacity 1s ease 0.5s; z-index: 1;
-}
-.heart-container.show { opacity: 1; pointer-events: auto; }
-.giant-heart { position: absolute; font-size: 120vw; line-height: 1; z-index: 1; opacity: 0.15; animation: heartbeat 1.5s infinite; user-select: none; }
-.heart-text { position: relative; z-index: 2; text-align: center; padding: 20px; max-width: 80%; animation: fadeUp 1s ease forwards; }
-.heart-text h2 { font-family: 'Marck Script', cursive; color: #7c3aed; font-size: 3em; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(255,255,255,0.8); }
-.heart-text p { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; color: #333; line-height: 1.4; margin-bottom: 30px; background: rgba(255,255,255,0.6); padding: 15px; border-radius: 15px; }
-.close-btn { background: #7c3aed; color: #fff; border: none; padding: 15px 35px; border-radius: 30px; font-size: 1.2em; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3); }
-.close-btn:hover { background: #6d28d9; transform: scale(1.05); }
-@keyframes heartbeat { 0% { transform: scale(1); } 15% { transform: scale(1.05); } 30% { transform: scale(1); } 45% { transform: scale(1.05); } 60% { transform: scale(1); } 100% { transform: scale(1); } }
-
-/* ============ ИНТЕРАКТИВНЫЙ ПИТОМЕЦ ============ */
-.pet-container { position: fixed; bottom: 20px; right: 20px; z-index: 10000; cursor: pointer; display: flex; flex-direction: column; align-items: flex-end; user-select: none; }
-.pet-bubble { background: #fff; color: #7c3aed; padding: 10px 15px; border-radius: 20px 20px 0 20px; font-family: 'Marck Script', cursive; font-size: 1.2em; box-shadow: 0 5px 15px rgba(124, 58, 237, 0.2); border: 1px solid rgba(124, 58, 237, 0.2); margin-bottom: 10px; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none; white-space: nowrap; }
-.pet-bubble.show { opacity: 1; transform: translateY(0); }
-.pet-emoji { font-size: 4em; line-height: 1; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.15)); animation: petBounce 3s ease-in-out infinite; transition: transform 0.2s; }
-.pet-container:hover .pet-emoji { transform: scale(1.1) rotate(-5deg); }
-@keyframes petBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-.pet-emoji.happy { animation: petHappy 0.5s ease; }
-@keyframes petHappy { 0% { transform: scale(1); } 50% { transform: scale(1.3) rotate(10deg); } 100% { transform: scale(1); } }
-
-@media (max-width: 700px) {
     .pet-container { bottom: 15px; right: 15px; }
     .pet-emoji { font-size: 3em; }
     .pet-bubble { font-size: 1em; padding: 8px 12px; }
+    .theme-toggle { top: 15px; right: 15px; width: 40px; height: 40px; font-size: 1em; }
 }
