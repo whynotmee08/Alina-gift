@@ -38,20 +38,19 @@
 
     <div class="top-bar">
         <span><span class="dot-live"></span>онлайн</span>
-        <span>Поймано сердечек: <span class="score-board" id="score">0</span></span>
+        <span class="achievement-counter">Достижения: <span id="achCount">0</span> / 5</span>
+        <span>Сердечки: <span class="score-board" id="score">0</span></span>
     </div>
 
     <!-- ЗАГОЛОВОК -->
     <header class="hero">
         <p class="label" id="heroLabel">персонально для тебя</p>
 
-        <!-- Обычный заголовок -->
         <h1 id="heroTitle">
             Алине
             <span class="accent">с любовью</span>
         </h1>
 
-        <!-- Заголовок на ДР (скрыт по умолчанию) -->
         <h1 id="birthdayTitle" style="display: none; color: #ff4d6d; font-size: clamp(3.5em, 10vw, 7em);">
             С ДНЕМ РОЖДЕНИЯ!
             <span class="accent" style="color: #ff4d6d;">Алина 🎂</span>
@@ -221,7 +220,47 @@
 </audio>
 
 <script>
-    // ============ ЭФФЕКТ МАТРИЦЫ (ПАДАЮЩИЕ СЕРДЕЧКИ) ============
+    // ============ СИСТЕМА ДОСТИЖЕНИЙ ============
+    let achievementsUnlocked = {
+        music: false,
+        hearts: false,
+        envelope: false,
+        wish: false,
+        pet: false
+    };
+
+    function unlockAchievement(key, title, icon) {
+        if (achievementsUnlocked[key]) return;
+        achievementsUnlocked[key] = true;
+
+        const total = Object.values(achievementsUnlocked).filter(v => v).length;
+        const counterEl = document.getElementById('achCount');
+        if (counterEl) counterEl.innerText = total;
+
+        showAchievementPopup(title, icon, total);
+    }
+
+    function showAchievementPopup(title, icon, currentTotal) {
+        createConfetti(window.innerWidth / 2, window.innerHeight / 2);
+
+        const ach = document.createElement('div');
+        ach.className = 'achievement-popup';
+        ach.innerHTML = `
+            <div class="ach-icon">${icon}</div>
+            <div class="ach-text">
+                <strong>Достижение получено (${currentTotal}/5)!</strong><br>
+                ${title}
+            </div>
+        `;
+        document.body.appendChild(ach);
+
+        setTimeout(() => {
+            ach.classList.add('hide');
+            setTimeout(() => ach.remove(), 500);
+        }, 4000);
+    }
+
+    // ============ ЭФФЕКТ МАТРИЦЫ ============
     const matrixContainer = document.getElementById('matrix-hearts');
     const symbols = ['💜', '🩷', '🤍', '❤️', '💖', '💕'];
 
@@ -230,19 +269,14 @@
         heart.className = 'matrix-heart';
         heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
         heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (Math.random() * 8 + 5) + 's'; // От 5 до 13 секунд
+        heart.style.animationDuration = (Math.random() * 8 + 5) + 's';
         heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
-        heart.style.opacity = Math.random() * 0.5 + 0.1; // От 0.1 до 0.6
+        heart.style.opacity = Math.random() * 0.5 + 0.1;
 
         matrixContainer.appendChild(heart);
-
-        // Удаляем сердечко, когда оно упадет
-        setTimeout(() => {
-            heart.remove();
-        }, 13000);
+        setTimeout(() => heart.remove(), 13000);
     }
 
-    // Создаем сердечки каждые 300 мс
     setInterval(createMatrixHeart, 300);
 
     // ============ СЛАЙДЕР ============
@@ -305,7 +339,10 @@
 
     function toggleMusic() {
         if (audio.paused) {
-            audio.play().then(() => setPlayingUI(true)).catch(err => alert('Ошибка: ' + err.message));
+            audio.play().then(() => {
+                setPlayingUI(true);
+                unlockAchievement('music', 'Первый шаг', '🎵');
+            }).catch(err => alert('Ошибка: ' + err.message));
         } else {
             audio.pause();
             setPlayingUI(false);
@@ -346,6 +383,7 @@
     ];
 
     function showRandomWish() {
+        unlockAchievement('wish', 'Читатель', '📜');
         const el = document.getElementById("secret");
         const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
 
@@ -362,7 +400,6 @@
     // ============ МИНИ-ИГРА И ШАРИКИ ============
     const balloonEmojis = ['🎈', '💜', '🩷', '✨', '🪻'];
     let score = 0;
-    let secretUnlocked = false;
     const scoreEl = document.getElementById('score');
 
     function createBalloon() {
@@ -392,9 +429,8 @@
             score++;
             scoreEl.innerText = score;
 
-            if (score === 21 && !secretUnlocked) {
-                secretUnlocked = true;
-                showAchievement();
+            if (score === 21) {
+                unlockAchievement('hearts', 'Ловец сердец', '💜');
             }
         };
 
@@ -441,28 +477,6 @@
 
     setInterval(createBalloon, 2000);
 
-    // ============ ДОСТИЖЕНИЕ ============
-    function showAchievement() {
-        createConfetti(window.innerWidth / 2, window.innerHeight / 2);
-        setTimeout(() => createConfetti(window.innerWidth / 2, window.innerHeight / 2), 300);
-
-        const ach = document.createElement('div');
-        ach.className = 'achievement-popup';
-        ach.innerHTML = `
-            <div class="ach-icon">🏆</div>
-            <div class="ach-text">
-                <strong>Достижение получено!</strong><br>
-                Лучшая сестра в мире
-            </div>
-        `;
-        document.body.appendChild(ach);
-
-        setTimeout(() => {
-            ach.classList.add('hide');
-            setTimeout(() => ach.remove(), 500);
-        }, 4000);
-    }
-
     // ============ СЕКРЕТНОЕ ОКНО (КОНВЕРТ) ============
     let secretShown = false;
     const vinylElement = document.getElementById('vinylWrapper');
@@ -484,6 +498,7 @@
 
         if (!env.classList.contains('open')) {
             env.classList.add('open');
+            unlockAchievement('envelope', 'Взломщик', '🎁');
             setTimeout(() => {
                 heart.classList.add('show');
                 createConfetti(window.innerWidth/2, window.innerHeight/2);
@@ -535,7 +550,7 @@
     function updateBirthday() {
         const today = new Date();
         let year = today.getFullYear();
-        let bday = new Date(year, 10, 3); // 3 ноября
+        let bday = new Date(year, 10, 3);
 
         const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
         if (endOfToday > bday) {
@@ -549,24 +564,16 @@
         const label = document.getElementById('daysLabel');
 
         if (el) {
-            // ПРОВЕРКА: Если сегодня 3 ноября
             if (today.getDate() === 3 && today.getMonth() === 10) {
-                // Меняем заголовок
                 document.getElementById('heroTitle').style.display = 'none';
                 document.getElementById('birthdayTitle').style.display = 'block';
                 document.getElementById('heroLabel').innerText = "Это твой день!";
                 document.getElementById('heroSubtitle').innerText = "Желаю тебе всего самого наилучшего. Ты — лучшая!";
-
-                // Прячем таймер
                 document.getElementById('birthdayTimer').style.display = 'none';
 
-                // Запускаем бесконечное конфетти на весь экран
                 setInterval(() => {
-                    createConfetti(
-                        Math.random() * window.innerWidth,
-                        Math.random() * window.innerHeight
-                    );
-                }, 500); // Каждые полсекунды
+                    createConfetti(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+                }, 500);
             } else {
                 el.innerText = diffDays;
             }
@@ -586,6 +593,7 @@
     let petChatter = 0;
 
     function petClicked() {
+        unlockAchievement('pet', 'Друг кота', '🐈');
         const emoji = document.getElementById('petEmoji');
         const bubble = document.getElementById('petBubble');
 
@@ -620,7 +628,7 @@
         const word = input.value.trim().toLowerCase();
 
         if (word === 'наилучший брат' || word === 'лучший брат' || word === 'брат') {
-            msg.innerText = "Ты нашла секрет! Молодец! 💜🎉";
+            msg.innerText = "Ты нашла секрет! Я тебя обожаю! 💜🎉";
             msg.className = "secret-word-message success";
             if (hint) hint.style.opacity = "0";
             createConfetti(window.innerWidth / 2, window.innerHeight / 2);
