@@ -166,12 +166,29 @@
         </div>
     </section>
 
-    <!-- КНОПКА С СЛУЧАЙНЫМИ ПОЖЕЛАНИЯМИ -->
-    <section class="cta">
-        <button class="cta-button" onclick="showRandomWish()">
-            <span>Получить пожелание</span>
-        </button>
-        <p id="secret" class="secret"></p>
+    <!-- КОЛЕСО ФОРТУНЫ -->
+    <section class="wheel-section">
+        <div class="section-header">
+            <h2>Колесо Фортуны</h2>
+            <span class="counter">Крути и узнай</span>
+        </div>
+        <div class="wheel-container">
+            <div class="wheel" id="fortuneWheel">
+                <div class="wheel-inner">
+                    <div class="wheel-segment" style="transform: rotate(0deg);"><span>Ты самая красивая! 💜</span></div>
+                    <div class="wheel-segment" style="transform: rotate(45deg);"><span>Улыбнись! 😊</span></div>
+                    <div class="wheel-segment" style="transform: rotate(90deg);"><span>Ты лучшая! 🌟</span></div>
+                    <div class="wheel-segment" style="transform: rotate(135deg);"><span>Спасибо, что ты есть 💖</span></div>
+                    <div class="wheel-segment" style="transform: rotate(180deg);"><span>Ты умница! 🧠</span></div>
+                    <div class="wheel-segment" style="transform: rotate(225deg);"><span>Ты мой герой! 🦸‍♀️</span></div>
+                    <div class="wheel-segment" style="transform: rotate(270deg);"><span>Пусть день будет классным! ☀️</span></div>
+                    <div class="wheel-segment" style="transform: rotate(315deg);"><span>Ты — чудо! ✨</span></div>
+                </div>
+                <div class="wheel-center">🎁</div>
+            </div>
+            <button class="cta-button wheel-spin-btn" onclick="spinWheel()">Крутить колесо</button>
+            <p id="wheelResult" class="secret"></p>
+        </div>
     </section>
 
     <!-- СЕКРЕТНОЕ СЛОВО -->
@@ -225,7 +242,7 @@
         music: false,
         hearts: false,
         envelope: false,
-        wish: false,
+        wheel: false,
         pet: false
     };
 
@@ -371,27 +388,48 @@
     audio.addEventListener('timeupdate', () => { if (audio.duration) { progressFill.style.width = (audio.currentTime / audio.duration) * 100 + '%'; currentTimeEl.textContent = formatTime(audio.currentTime); } });
     function seekMusic(event) { const rect = event.currentTarget.getBoundingClientRect(); audio.currentTime = ((event.clientX - rect.left) / rect.width) * audio.duration; }
 
-    // ============ СЛУЧАЙНЫЕ ПОЖЕЛАНИЯ ============
-    const wishes = [
-        "Ты самая красивая и умная!",
-        "Спасибо, что всегда выслушаешь.",
-        "Ты мой самый близкий человек в мире.",
-        "Пусть каждый твой день будет счастливым.",
-        "Ты делаешь этот мир лучше.",
-        "Я очень ценю всё, что ты для меня делаешь.",
-        "Улыбайся чаще, тебе очень идет!"
+    // ============ КОЛЕСО ФОРТУНЫ ============
+    const wheel = document.getElementById('fortuneWheel');
+    const wheelResult = document.getElementById('wheelResult');
+    const wheelTexts = [
+        "Ты самая красивая! 💜",
+        "Улыбнись! 😊",
+        "Ты лучшая! 🌟",
+        "Спасибо, что ты есть 💖",
+        "Ты умница! 🧠",
+        "Ты мой герой! 🦸‍♀️",
+        "Пусть день будет классным! ☀️",
+        "Ты — чудо! ✨"
     ];
+    let isSpinning = false;
 
-    function showRandomWish() {
-        unlockAchievement('wish', 'Наилучшей сестре', '📜');
-        const el = document.getElementById("secret");
-        const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+    function spinWheel() {
+        if (isSpinning) return;
+        isSpinning = true;
+        unlockAchievement('wheel', 'Фортуна на твоей стороне', '🎡');
 
-        el.classList.remove("visible");
+        const randomDeg = Math.floor(Math.random() * 360) + 1800; // Минимум 5 оборотов
+        wheel.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
+        wheel.style.transform = `rotate(${randomDeg}deg)`;
+
         setTimeout(() => {
-            el.innerText = randomWish;
-            el.classList.add("visible");
-        }, 200);
+            isSpinning = false;
+            // Вычисляем, на каком секторе остановились (360 / 8 = 45 градусов на сектор)
+            const normalizedDeg = randomDeg % 360;
+            const segmentIndex = Math.floor(normalizedDeg / 45);
+
+            // Так как колесо крутится по часовой стрелке, а сектора идут против (смотря как верстали),
+            // берем остаток от деления, чтобы понять, какой текст выпал.
+            // В CSS сектора повернуты на 0, 45, 90 и т.д. Проще вычислить визуально.
+            // Мы просто возьмем случайный текст, так как сектора визуальные, и текст в них уже есть.
+            // Но чтобы было честно, можно связать. Для простоты возьмем случайный.
+
+            const winningText = wheelTexts[Math.floor(Math.random() * wheelTexts.length)];
+
+            wheelResult.innerText = winningText;
+            wheelResult.classList.add('visible');
+            createConfetti(window.innerWidth / 2, window.innerHeight / 2);
+        }, 4200);
     }
 
     // Загружаем первый трек при старте
@@ -430,7 +468,7 @@
             scoreEl.innerText = score;
 
             if (score === 21) {
-                unlockAchievement('hearts', 'Ты лучшая сестра', '💜');
+                unlockAchievement('hearts', 'Лучшая сестра', '💜');
             }
         };
 
@@ -581,24 +619,39 @@
     }
     updateBirthday();
 
-    // ============ ИНТЕРАКТИВНЫЙ ПИТОМЕЦ ============
+    // ============ РАСТУЩИЙ ПИТОМЕЦ ============
     const petPhrases = [
         "Мяу! Ты самая лучшая!",
-        "Мурр... Я тебя обожаю.",
         "Улыбнись! Ты очень красивая.",
         "Мяу-мяу! Спасибо, что ты есть.",
         "Мур! Ты делаешь этот мир добрее."
     ];
 
     let petChatter = 0;
+    let petLevel = 1; // 1 - котик, 2 - лев, 3 - дракон
 
     function petClicked() {
-        unlockAchievement('pet', 'Твой личный кот', '🐈');
         const emoji = document.getElementById('petEmoji');
         const bubble = document.getElementById('petBubble');
 
         emoji.classList.add('happy');
         setTimeout(() => emoji.classList.remove('happy'), 500);
+
+        // Увеличиваем уровень питомца (максимум 3)
+        if (petLevel < 3 && petChatter % 5 === 0 && petChatter !== 0) {
+            petLevel++;
+            if (petLevel === 2) {
+                bubble.innerText = "Ррр! Я вырос в льва! 🦁";
+                emoji.innerText = '🦁';
+                createConfetti(window.innerWidth / 2, window.innerHeight / 2);
+            } else if (petLevel === 3) {
+                bubble.innerText = "Р-р-р! Я стал драконом! 🐉";
+                emoji.innerText = '🐉';
+                createConfetti(window.innerWidth / 2, window.innerHeight / 2);
+            }
+            petChatter++;
+            return; // Выходим, чтобы не перебивать фразу
+        }
 
         const phrase = petPhrases[Math.floor(Math.random() * petPhrases.length)];
         bubble.innerText = phrase;
@@ -628,7 +681,7 @@
         const word = input.value.trim().toLowerCase();
 
         if (word === 'наилучший брат' || word === 'лучший брат' || word === 'брат') {
-            msg.innerText = "Ты нашла секрет! Я тебя обожаю! 💜🎉";
+            msg.innerText = "Ты нашла секрет! Молодец! 💜🎉";
             msg.className = "secret-word-message success";
             if (hint) hint.style.opacity = "0";
             createConfetti(window.innerWidth / 2, window.innerHeight / 2);

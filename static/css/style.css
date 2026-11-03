@@ -199,7 +199,7 @@ h1 .accent { font-family: 'Marck Script', cursive; font-weight: 400; display: bl
 .letter .line { font-family: 'Cormorant Garamond', serif; font-size: 1.6em; line-height: 1.6; font-weight: 300; color: #333; margin-bottom: 14px; min-height: 1.6em; transition: color 0.5s; }
 .signature { font-family: 'Marck Script', cursive !important; font-size: 2em !important; color: #7c3aed !important; margin-top: 32px !important; text-align: right; padding-right: 20px; }
 
-/* ============ CTA ============ */
+/* ============ CTA И КОЛЕСО ============ */
 .cta { text-align: center; opacity: 0; animation: fadeUp 1s ease 4.8s forwards; padding-top: 40px; border-top: 1px solid rgba(124, 58, 237, 0.18); }
 button.cta-button { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.75em; letter-spacing: 0.3em; text-transform: uppercase; color: #0a0a0a; background: transparent; border: 1px solid #0a0a0a; padding: 22px 52px; cursor: pointer; transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1); position: relative; overflow: hidden; }
 button.cta-button span { position: relative; z-index: 2; transition: color 0.5s ease; }
@@ -208,6 +208,91 @@ button.cta-button:hover::before { transform: translateY(0); }
 button.cta-button:hover span { color: #fff; }
 .secret { font-family: 'Marck Script', cursive; font-size: 2em; color: #7c3aed; margin-top: 36px; opacity: 0; transform: translateY(12px); transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); min-height: 50px; line-height: 1.3; }
 .secret.visible { opacity: 1; transform: translateY(0); }
+
+/* ============ КОЛЕСО ФОРТУНЫ ============ */
+.wheel-section { margin-bottom: 100px; opacity: 0; animation: fadeUp 1.2s ease 0.7s forwards; text-align: center; }
+.wheel-container { display: flex; flex-direction: column; align-items: center; }
+.wheel {
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: conic-gradient(
+        #7c3aed 0deg 45deg,
+        #a78bfa 45deg 90deg,
+        #ff9ec4 90deg 135deg,
+        #ffc89e 135deg 180deg,
+        #f59e0b 180deg 225deg,
+        #10b981 225deg 270deg,
+        #3b82f6 270deg 315deg,
+        #ec4899 315deg 360deg
+    );
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.wheel-inner {
+    position: absolute;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.wheel-segment {
+    position: absolute;
+    top: 0; left: 50%;
+    width: 50%; height: 50%;
+    transform-origin: bottom left;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.wheel-segment span {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    transform: rotate(22.5deg); /* Чтобы текст был по центру сектора */
+    display: block;
+    width: 100px;
+    text-align: center;
+}
+
+.wheel-center {
+    position: absolute;
+    width: 50px; height: 50px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+.wheel-spin-btn {
+    background: linear-gradient(135deg, #7c3aed, #a78bfa);
+    color: #fff;
+    border: none;
+    padding: 18px 40px;
+    border-radius: 30px;
+    font-size: 1em;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+    transition: 0.3s;
+}
+
+.wheel-spin-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.6);
+}
 
 /* ============ СЕКРЕТНОЕ СЛОВО ============ */
 .secret-word-section { text-align: center; padding: 40px 0; border-top: 1px solid rgba(124, 58, 237, 0.18); margin-bottom: 50px; }
@@ -317,4 +402,7 @@ body.dark-theme .aurora-3 { background: #9e6b2d; opacity: 0.4; }
     .pet-emoji { font-size: 3em; }
     .pet-bubble { font-size: 1em; padding: 8px 12px; }
     .theme-toggle { top: 15px; right: 15px; width: 40px; height: 40px; font-size: 1em; }
+    .wheel { width: 250px; height: 250px; }
+    .wheel-segment span { font-size: 0.6em; width: 80px; }
+    .wheel-center { width: 40px; height: 40px; font-size: 1.2em; }
 }
