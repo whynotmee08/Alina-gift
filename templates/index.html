@@ -269,41 +269,35 @@
             .playlist-title { font-size: 1.05em; }
         }
     <style>
-         @keyframes floatUp {
-        to {
-            transform: translateY(-120vh) rotate(20deg);
-        }
-    }
-            <script>
-    /* ============ ЛЕТЯЩИЕ ШАРИКИ ============ */
-    .balloon {
-        position: fixed;
-        bottom: -100px;
-        font-size: 30px;
-        pointer-events: auto;
-        cursor: pointer;
-        z-index: 0;
-        animation: floatUp linear forwards;
-        user-select: none;
-        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-    }
-
-    .balloon.popped {
-        pointer-events: none;
-        animation: pop 0.3s ease-out forwards;
-    }
-
-    @keyframes floatUp {
-        to {
-            transform: translateY(-120vh) rotate(20deg);
-        }
-    }
-
-    @keyframes pop {
-        0% { transform: scale(1); opacity: 1; }
-        100% { transform: scale(1.5); opacity: 0; }
-    }
     </script>
+              /* ============ ЛЕТЯЩИЕ ШАРИКИ ============ */
+        .balloon {
+            position: fixed;
+            bottom: -100px;
+            font-size: 30px;
+            pointer-events: auto;
+            cursor: pointer;
+            z-index: 0;
+            animation: floatUp linear forwards;
+            user-select: none;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .balloon.popped {
+            pointer-events: none;
+            animation: pop 0.3s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            to {
+                transform: translateY(-120vh) rotate(20deg);
+            }
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
 </style>
 </head>
 <body>
@@ -592,7 +586,6 @@
     }
 
     setInterval(createBalloon, 2000);
-
     setTimeout(createBalloon, 500);
     setTimeout(createBalloon, 1000);
     setTimeout(createBalloon, 1500);
